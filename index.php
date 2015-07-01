@@ -1,0 +1,81 @@
+<?php /** --- index.php --- **/ 
+	require_once './codePiece/session.php';
+	require_once './codePiece/intro.php';
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Sporting Club Pinamare</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" href="images/styles.css" type="text/css" />
+	</head>
+	
+	<body>
+	<div id="wrap">
+  		<div id="header">
+    		<h1 id="logo">Sporting<span class="gray">Club</span><span class="green">Pinamare</span></h1>
+    		<h2 id="slogan">Sport &amp; Fun for whole the family!</h2>
+    		<ul id="MenuAlto">
+      			<li id="current"><a href="./index.php"><span>Home</span></a></li>
+      			<li><a href="./activities.php"><span>Activities</span></a></li>
+      			<?php if($loggedIn) {
+      				echo "<li><a href='./reservations.php'><span>Reservations</span></a></li>";
+      				echo "<li><a href='./logout.php'><span>Logout</span></a></li>";
+      			}
+      			else {
+      				echo "<li><a href='./signUp.php'><span>Sign Up</span></a></li>";
+      				echo "<li><a href='./login.php'><span>Login</span></a></li>";
+      			}?>
+      			<li><a href="./about.php"><span>About</span></a></li>
+    		</ul>
+  		</div>
+  		
+  		<div id="content-wrap">
+  			<img src="images/act.jpg" width="950" height="215" alt="headerphoto" class="no-border" style="border-color: #9EC630;" />
+    		<div id="sidebar">
+    		    <?php if($loggedIn)
+    		    	echo "<blockquote style='padding: 0 0 0 1px;'><h7>Welcome:</h7>",
+    		    		"<p style='padding: 0 0 0 5px;'>$username</p></blockquote>";
+    			?>
+      			<h2> Options </h2>
+      			<ul class="sidemenu">
+	      			<li><a href="./index.php"><span> Home </span></a></li>
+	      			<li><a href="./activities.php"> Activities </a></li>
+	      			<?php if($loggedIn) {
+	      				echo "<li><a href='./reservations.php'> Reservations </a></li>";
+	      				echo "<li><a href='./logout.php'> Logout </a></li>";
+	      			}
+      				else {
+      					echo "<li><a href='./signUp.php'> Sign Up </a></li>";
+      					echo "<li><a href='./login.php'> Login </a></li>"; 
+      				}?>
+	      			<li><a href="./about.php"> About </a></li>
+	    		</ul>
+    		</div>
+    		
+    		<div id="main">
+    			<?php require_once './codePiece/noscript.php';	?>
+      			<h1>Welcome!<span class="green"></span></h1>
+      			<p><strong>Welcome</strong> to our website!<br>
+      				<a href="./activities.php">Here</a> you can see the list of our activities and after a <a href="./signUp.php"><strong>free</strong> registration</a> you can reserve a place for you and your children.</p>
+      			<p>Unfortunately your children can't partecipate to our activity without the supervision of an adult, so you have to book also a place for you.<BR>
+      				Each registered user can accompany a maximum of 3 children!</p>
+      			<p>Have fun with our wonderful activities!</p>
+				<p>&nbsp;</p>
+				<h3>Our Olympic swimming pool</h3>
+				<img src="images/pool.jpg" width="700" height="390" alt="Olympic Pool" class="border: 1px solid" style="margin:0 0 0 0;" /><p>&nbsp;</p>
+				<div class="float-left">
+      				<h2 class="aligh-left">Our football pitch</h2>
+      				<img class="float-left" src="images/football.jpg" width="300" height="200" alt="football pitch" class="border: 1px solid" style="margin:0 0 0 0;" /><p>&nbsp;</p>
+      			</div>
+      			<div class="float-right">
+					<h2 class="aligh-right">Our Tennis courts</h2>
+      				<img class="float-right" src="images/tennis.jpg" width="300" height="200" alt="Tennis courts" class="border: 1px solid" style="margin:0 8px 0 0;" /><p>&nbsp;</p>
+      			</div>	
+      		</div>
+		</div>
+		<?php include_once './codePiece/footer.php'; ?>
+	</div>
+	</body>
+</html>
