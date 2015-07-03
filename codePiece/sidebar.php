@@ -14,18 +14,18 @@
     ?>
     <h2> Options </h2>
     <ul class="sidemenu">
-        <li><a href="./index.php"><span> Home </span></a></li>
-        <li><a href="./activities.php"> Activities </a></li>
+        <li><a id="home" href="./index.php"> Home </a></li>
+        <li><a id="activities" href="./activities.php"> Activities </a></li>
         <?php
         if( isset($loggedIn) && ($loggedIn) ) {
-            echo "<li><a href='./personalPage.php'> Personal Page </a></li>";
-            echo "<li><a href='./logout.php'> Logout </a></li>";
+            echo "<li><a id='personalpage' href='./personalPage.php'> Personal Page </a></li>";
+            echo "<li><a id='logout' href='./logout.php'> Logout </a></li>";
         }
         else {
-            echo "<li><a href='./signUp.php'> Sign Up </a></li>";
-            echo "<li><a href='./login.php'> Login </a></li>";
+            echo "<li><a id='signup' href='./signUp.php'> Sign Up </a></li>";
+            echo "<li><a id='login' href='./login.php'> Login </a></li>";
         }
         ?>
-        <li><a href="./about.php"> About </a></li>
+        <li><a id="about" href="./about.php"> About </a></li>
     </ul>
 </div>

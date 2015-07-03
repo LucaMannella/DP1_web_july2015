@@ -1,3 +1,5 @@
+/** This file is responsible for managing client-side controls. **/
+
 function checkRegistrationValues(){
 	user = document.getElementById("Username").value;
 	pwd = document.getElementById("Password").value;
@@ -41,4 +43,18 @@ function checkPassword() {
 	}
 	img.style.visibility = "visible";
 	return toRet;
+}
+
+function checkAvailability(code){
+	var form = document.getElementById("activity"+code);
+	var childs = parseInt( form[1].value );
+	var availability = parseInt( document.getElementById("av"+code).innerHTML );
+
+	//DEBUG console.log(availability);	console.log(form[1].value);
+	if((childs+1) <= availability)
+		return true;
+	else {
+		window.alert("There are not so many places to reserve! Please reduce the number of children!");
+		return false;
+	}
 }

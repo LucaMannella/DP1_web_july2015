@@ -12,17 +12,18 @@
 		$result = "<h2>You have been succesfully <span class='green'>logged out</span>.</h2>"
 				."<p>Did you make a mistake? Click <a href='./login.php'><span class='green'>here</span></a> to login again!</p>";
 	}
+    $loggedIn = false;
 ?>
 
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Sporting Club Pinamare</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<link rel="stylesheet" href="images/styles.css" type="text/css" />
-		<script type="text/javascript" src="./library/functions.js"></script>
-	</head>
+    <head>
+        <title>Reservations Conference Hall</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="images/styles.css" type="text/css" />
+        <script type="text/javascript" src="library/checks.js"></script>
+    </head>
 	
 	<body onload="javascript: document.forms[0].Username.focus();">
 	<div id="wrap">

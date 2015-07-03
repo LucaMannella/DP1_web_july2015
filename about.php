@@ -5,11 +5,12 @@
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Sporting Club Pinamare</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<link rel="stylesheet" href="images/styles.css" type="text/css" />
-	</head>
+    <head>
+        <title>Reservations Conference Hall</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="images/styles.css" type="text/css" />
+        <script type="application/javascript" src="library/graphics.js" ></script>
+    </head>
 	
 	<body>
 	<div id="wrap">
@@ -42,7 +43,8 @@
 		<?php include_once './codePiece/footer.php'; ?>
 	</div>
     <script type="text/javascript">
-
+        setCurrent(document.getElementById("About"));
+        setSpan(document.getElementById("about"), "About");
     </script>
 	</body>
 </html>

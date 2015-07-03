@@ -38,11 +38,10 @@
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Sporting Club Pinamare</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<link rel="stylesheet" href="images/styles.css" type="text/css" />
-		<script type="text/javascript" src="./library/functions.js"></script>
+    <head>
+        <title>Reservations Conference Hall</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="images/styles.css" type="text/css" />
 	</head>
 	
 	<body onload="javascript: document.forms[0].Username.focus();">

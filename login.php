@@ -6,12 +6,13 @@
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Sporting Club Pinamare</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<link rel="stylesheet" href="images/styles.css" type="text/css" />
-		<script type="text/javascript" src="./library/functions.js"></script>
-	</head>
+    <head>
+        <title>Reservations Conference Hall</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="images/styles.css" type="text/css" />
+        <script type="text/javascript" src="library/checks.js "></script>
+        <script type="application/javascript" src="library/graphics.js" ></script>
+    </head>
 	
 	<body onload="javascript: document.forms[0].Username.focus();">
 	<div id="wrap">
@@ -44,5 +45,11 @@
 		</div>
   		<?php include_once './codePiece/footer.php'; ?>
 	</div>
+
+    <script type="text/javascript">
+        setCurrent(document.getElementById("Login"));
+        setSpan(document.getElementById("login"), "Login");
+    </script>
+
 	</body>
 </html>

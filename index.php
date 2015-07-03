@@ -10,6 +10,8 @@
 		<title>Reservations Conference Hall</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<link rel="stylesheet" href="images/styles.css" type="text/css" />
+        <script type="application/javascript" src="library/graphics.js" ></script>
+
 	</head>
 	
 	<body>
@@ -43,5 +45,10 @@
 		</div>
 		<?php include_once './codePiece/footer.php'; ?>
 	</div>
+
+    <script type="text/javascript">
+        setCurrent(document.getElementById("Home"));
+        setSpan(document.getElementById("home"), "Home");
+    </script>
 	</body>
 </html>
