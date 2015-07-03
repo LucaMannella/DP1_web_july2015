@@ -10,7 +10,7 @@ body {
 	padding: 0;
 	font: .70em/1.5em  Verdana, Tahoma, Helvetica, sans-serif;
 	color: #666666; 
-	background: #A9BAC3 url(bg2.jpg) repeat-x;
+	background: #A9BAC3 url(bg.jpg) repeat-x;
 	text-align: center;
 }
 
@@ -140,7 +140,7 @@ textarea {
 	color: #FFF;
 }
 
-/* search form */
+/* search form
 form.searchform {
 	background: transparent;
 	border: none;
@@ -165,6 +165,7 @@ form.searchform input.button {
 	width: 60px;
 	vertical-align: top;
 }
+*/
 
 /********************/
 /*		LAYOUT		*/
@@ -185,14 +186,15 @@ form.searchform input.button {
 #header {
 	position: relative;
 	height: 85px;	
-	background: #000 url(headerbg.gif) repeat-x 0% 100%;	
+	background: #000 url(headerbg.jpg) repeat-x 0% 100%;
 }
 #header h1#logo {
 	position: absolute;
 	margin: 0; padding: 0;
 	font: bolder 4.1em 'Trebuchet MS', Arial, Sans-serif;
 	letter-spacing: -2px;
-	top: 0; left: 5px;	
+	top: 0; left: 5px;
+    color: lightgray;
 }
 #header h2#slogan {
 	position: absolute;	 
@@ -201,10 +203,6 @@ form.searchform input.button {
 	text-indent: 0px;
 	font: bold 11px Tahoma, 'trebuchet MS', Sans-serif; 
 	text-transform: none;	
-}
-#header form.searchform {
-	position: absolute;
-	top: 0; right: -12px;	
 }
 
 /* main */
@@ -311,7 +309,7 @@ form.searchform input.button {
 }
 #header a {
    float:left;
-   background: url(tableft.gif) no-repeat left top;
+   background: url(tableft.jpg) no-repeat left top;
    margin:0;
    padding:0 0 0 4px;
    text-decoration:none;
@@ -319,9 +317,9 @@ form.searchform input.button {
 #header a span {
    float:left;
    display:block;
-   background: url(tabright.gif) no-repeat right top;
+   background: url(tabright.jpg) no-repeat right top;
    padding:6px 15px 3px 8px;
-   color: #FFF;
+   color: #444444;
 }
 /* Commented Backslash Hack hides rule from IE5-Mac \*/
 #header a span {float:none;}

@@ -1,10 +1,11 @@
 <?php	/** --- session.php --- **/
 	session_start();
 	$SessionTime = 120;	#time in seconds (the requirement is 2 minutes)
+    global $loggedIn;
 	
 	require_once 'destroySession.php';
 	
-	/** Check if the user is already loggeIn,
+	/** Check if the user is already loggedIn,
 		if the timeout was expired the session is destroyed **/
 	if( isset($_SESSION['user']) ) {
 		$username = $_SESSION['user'];

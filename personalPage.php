@@ -1,4 +1,4 @@
-<?php	/** --- reservations.php --- **/
+<?php	/** --- personalPage.php --- **/
 	require_once './codePiece/sessionMandatory.php';
 	require_once './codePiece/intro.php';
 	require_once './library/util.php';
@@ -15,46 +15,12 @@
 	
 	<body>
 	<div id="wrap">
-  		<div id="header">
-    		<h1 id="logo">Sporting<span class="gray">Club</span><span class="green">Pinamare</span></h1>
-    		<h2 id="slogan">Sport &amp; Fun for whole the family!</h2>
-    		<ul id="MenuAlto">
-      			<li><a href="./index.php"><span>Home</span></a></li>
-      			<li><a href="./activities.php"><span>Activities</span></a></li>
-      			<?php if($loggedIn) {
-      				echo "<li id='current'><a href='./reservations.php'><span>Reservations</span></a></li>";
-      				echo "<li><a href='./logout.php'><span>Logout</span></a></li>";
-      			}
-      			else {
-      				echo "<li><a href='./signUp.php'><span>Sign Up</span></a></li>";
-      				echo "<li><a href='./login.php'><span>Login</span></a></li>";
-      			}?>
-      			<li><a href="./about.php"><span>About</span></a></li>
-    		</ul>
-  		</div>
+        <?php require_once './codePiece/header.php'; ?>
+        </div>
   		
   		<div id="content-wrap">
-  			<img src="images/act.jpg" width="950" height="215" alt="headerphoto" class="no-border" style="border-color: #9EC630;" />
-    		<div id="sidebar">
-    		    <?php if($loggedIn)
-    		    	echo "<blockquote style='padding: 0 0 0 1px;'><h7>Welcome:</h7>",
-    		    		"<p style='padding: 0 0 0 5px;'>$username</p></blockquote>";
-    			?>
-      			<h2> Options </h2>
-      			<ul class="sidemenu">
-	      			<li><a href="./index.php"> Home </a></li>
-	      			<li><a href="./activities.php"> Activities </a></li>
-	      			<?php if($loggedIn) {
-	      				echo "<li><a href='./reservations.php'><span> Reservations </span></a></li>";
-	      				echo "<li><a href='./logout.php'> Logout </a></li>";
-	      			}
-      				else {
-      					echo "<li><a href='./signUp.php'> Sign Up </a></li>";
-      					echo "<li><a href='./login.php'> Login </a></li>"; 
-      				}?>
-	      			<li><a href="./about.php"> About </a></li>
-	    		</ul>
-    		</div>
+            <img src="images/sala-congressi-resized.jpg" width="950" height="250" alt="headerphoto" class="no-border" />
+            <?php require_once './codePiece/sidebar.php'; ?>
     		
     		<div id="main">
     		<?php require_once './codePiece/noscript.php';	?>
@@ -184,7 +150,7 @@
       							$i = 0;
       							while($row!=NULL) {
       								$actID = $row['id'];	$code = $row['code'];	$childs = $row['childs'];
-      								echo "<form id='reservation$i' action='./reservations.php' method='post'>";
+      								echo "<form id='reservation$i' action='./personalPage.php' method='post'>";
       									echo "<TABLE><TR><TH><h7>".$row['name']."</h7></TH><TH><input name='code' value='$code' type='text' readonly style='display:none'/></TH>";
       									if($childs>0)
       										echo "<TR><TD style='text-align: center'> You reserved a place for you and <span class='green'>$childs</span> place(s) for your childs. </TD>";
@@ -220,7 +186,7 @@
       						$i = 0;
       						while($row!=NULL) {
       							$actID = $row['id'];
-      							echo "<form id='activity$i' action='./reservations.php' method='post'>";
+      							echo "<form id='activity$i' action='./personalPage.php' method='post'>";
       								echo "<TABLE><TR><TH><h7>".$row['name']."</h7></TH><TH><input name='id' value='$actID' type='text' readonly style='display:none'/></TH>";
       								echo "<TR><TD> Number of available place: <span id='av$i' class='green'>".$row['availability']."</span> <br>";
       								echo "Total places for the activity: <span id='place$i' class='cyan'>".$row['places']."</span> </TD>";
