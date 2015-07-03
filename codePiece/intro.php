@@ -24,7 +24,7 @@
 	}
 	
 	$db_host = "localhost";
-	$db_user = "s222325";
-	$db_pass = "argoomog";
-	$db_name = "s222325";
+	$db_user = "root";  #$db_user = "s222325";
+	$db_pass = "";      #$db_pass = "argoomog";
+    $db_name = "s222325";
 ?>
