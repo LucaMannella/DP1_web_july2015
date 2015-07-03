@@ -17,7 +17,6 @@
 	<body>
 	<div id="wrap">
         <?php require_once './codePiece/header.php'; ?>
-        </div>
   		
   		<div id="content-wrap">
             <img src="images/sala-congressi-resized.jpg" width="950" height="250" alt="headerphoto" class="no-border" />
@@ -216,7 +215,7 @@
 
     <script type="text/javascript">
         setCurrent(document.getElementById("PersonalPage"));
-        setSpan(document.getElementById("personalpage"), "PersonalPage");
+        setSpan(document.getElementById("personalpage"), "Personal Page");
     </script>
 
 	</body>

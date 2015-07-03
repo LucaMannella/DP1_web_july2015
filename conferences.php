@@ -1,4 +1,4 @@
-<?php	/** --- activities.php --- **/
+<?php	/** --- conferences.php --- **/
 	require_once './codePiece/session.php';
 	require_once './codePiece/intro.php';
 	require_once './library/util.php';
@@ -23,7 +23,7 @@
     		
     		<div id="main">
     			<?php require_once './codePiece/noscript.php';	?>
-      			<h1>Reserve <span class="gray">an</span> <span class="green">Activity</span></h1><BR>
+      			<h1>Reserve <span class="gray">a</span> <span class="green">Conference</span></h1><BR>
       			<?php 
 	      			$conn = connectToDB($db_host, $db_user, $db_pass, $db_name);
 	      			if($conn !== false) {
@@ -55,8 +55,8 @@
 	</div>
 
     <script type="text/javascript">
-        setCurrent(document.getElementById("Activities"));
-        setSpan(document.getElementById("activities"), "Activities");
+        setCurrent(document.getElementById("Conferences"));
+        setSpan(document.getElementById("conferences"), "Conferences");
     </script>
 	</body>
 </html>

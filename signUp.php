@@ -14,7 +14,7 @@
         <script type="application/javascript" src="library/graphics.js" ></script>
     </head>
 	
-	<body onload="document.forms[0].Username.focus();">
+	<body>
 	<div id="wrap">
         <?php require_once './codePiece/header.php'; ?>
   		
@@ -51,7 +51,8 @@
 
     <script type="text/javascript">
         setCurrent(document.getElementById("SignUp"));
-        setSpan(document.getElementById("signup"), "SignUp");
+        setSpan(document.getElementById("signup"), "Sign Up");
+        document.forms[0].Username.focus();
     </script>
 
 	</body>

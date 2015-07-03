@@ -14,7 +14,7 @@
         <script type="application/javascript" src="library/graphics.js" ></script>
     </head>
 	
-	<body onload="javascript: document.forms[0].Username.focus();">
+	<body>
 	<div id="wrap">
         <?php require_once './codePiece/header.php'; ?>
   		
@@ -28,7 +28,7 @@
       				<blockquote> <h2>You are already <span class='green'>logged in</span>.</h2></blockquote>
      			<?php else: 
      				if( (isset($_GET["msg"])) && ($_GET["msg"]=="SessionTimeOutExpired") )
-     					echo "<p style='color:red;'>Tmeout expired! You have not interacted with our server for too much time!<br>Please, login again! </p>";	?>
+     					echo "<p class='red'>Tmeout expired! You have not interacted with our server for too much time!<br>Please, login again! </p>";	?>
      				<h1>Enter <span class='gray'>Your</span> <span class='green'>Data</span></h1>
      				<blockquote>
      				<form id="UserData" method="post" action="./logon.php" >
@@ -49,6 +49,7 @@
     <script type="text/javascript">
         setCurrent(document.getElementById("Login"));
         setSpan(document.getElementById("login"), "Login");
+        javascript: document.forms[0].Username.focus();
     </script>
 
 	</body>

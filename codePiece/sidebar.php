@@ -15,7 +15,7 @@
     <h2> Options </h2>
     <ul class="sidemenu">
         <li><a id="home" href="./index.php"> Home </a></li>
-        <li><a id="activities" href="./activities.php"> Activities </a></li>
+        <li><a id="conferences" href="./conferences.php"> Conferences </a></li>
         <?php
         if( isset($loggedIn) && ($loggedIn) ) {
             echo "<li><a id='personalpage' href='./personalPage.php'> Personal Page </a></li>";

@@ -5,7 +5,7 @@
         <h2 id='slogan'>Comfort &amp; Professionality at your service!</h2>
         <ul id='MenuAlto'>
             <li id='Home'><a href='./index.php'><span>Home</span></a></li>
-            <li id='Activities'><a href='./activities.php'><span>Activities</span></a></li>
+            <li id='Conferences'><a href='./conferences.php'><span>Conferences</span></a></li>
             <?php
             if(isset($loggedIn) && ($loggedIn)) {
                 echo "<li id='PersonalPage'><a href='./personalPage.php'><span>Personal Page</span></a></li>";
