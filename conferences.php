@@ -23,29 +23,24 @@
     		
     		<div id="main">
     			<?php require_once './codePiece/noscript.php';	?>
-      			<h1>Reserve <span class="gray">a</span> <span class="green">Conference</span></h1><BR>
+      			<h1>Today <span class="darkgray">Conferences</span></h1><BR>
       			<?php 
 	      			$conn = connectToDB($db_host, $db_user, $db_pass, $db_name);
-	      			if($conn !== false) {
-		      			$res = mysqli_query($conn, "SELECT name, places, availability FROM activities ORDER BY availability DESC, places ASC");
+	      			if($conn != false) {
+		      			$res = mysqli_query($conn, "SELECT name, participants, start_time, end_time FROM booking ORDER BY participants DESC, name ASC");
 		      			if (!$res)
-		      				die("Error in query execution!");
-	      			
-		      			$row = mysqli_fetch_array($res);
-		      			while($row != NULL) {
-		      				$places = $row['places'];
-		      				$reserv = $places - $row['availability'];
-		      				
-		      				echo "<h7>".$row['name']."</h7>";
-		      				if($places === $reserv)
-		      					echo "<p>Number of reserved place: <span class='gray'>$reserv</span> <br>";
-		      				else
-		      					echo "<p>Number of reserved place: <span class='green'>$reserv</span> <br>";
-		      				
-		      				echo "Total places for the activity: <span class='cyan'>$places</span> </p><br>";
-		      				$row = mysqli_fetch_array($res);
-		      			}
-		      			mysqli_free_result($res);
+		      				echo "<p class='red'> Error in query execution! </p>";
+
+                        else {
+                            $row = mysqli_fetch_array($res);
+                            while ($row != NULL) {
+                                echo "<h2><span class='darkgray'>Conference: </span>".$row['name']."</h2>",
+                                    "<p>The conference starts at: <span class='cyan'>".$row['start_time']."</span> and end at: <span class='cyan'>".$row['end_time']."</span><br>",
+                                    "Number of participants to the conference: <span class='cyan'>".$row['participants']."</span> </p><br>";
+                                $row = mysqli_fetch_array($res);
+                            }
+                            mysqli_free_result($res);
+                        }
 		      			mysqli_close($conn);
 	      			}
       			?>

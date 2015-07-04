@@ -27,13 +27,13 @@ a:hover {
 }
 
 /* headers */
-h1, h2, h3, h4, h7 {
+h1, h2, h3, h4, h6 {
 	font: bold 1em 'Trebuchet MS', Arial, Sans-serif;
 	color: #333;	
 }
 h1 { font-size: 2em;	color: #6297BC; } 
 h2 { font-size: 1.5em;	color: #6297BC; }
-h7 { font-size: 1.5em;	color: #9EC630;	margin: 5px 8px;}
+h6 { font-size: 1.5em;	color: #9EC630;	margin: 5px 8px;}
 h3 { font-size: 1.4em; }
 h4 { font-size: 1.3em;	color: #9EC630; }
 /*h5 { font-size: 1.3em;	color: #6297BC; }*/
@@ -351,10 +351,11 @@ form.searchform input.button {
 
 /* additional classes */
 .clear	{ clear: both; }
+.red	{ color: red; }
 .green	{ color: #9EC630; }
 .gray	{ color: #BFBFBF; }
 .cyan	{ color: #6297BC; }
-.red	{ color: red; }
+.darkgray { color: #666666; }
 
 
 /** Other Stuff **/

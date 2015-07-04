@@ -59,7 +59,7 @@
 									if(!mysqli_commit($conn))
 										throw new Exception("<p style='color:red'>Impossible to commit the operation!</p>");
 									
-									echo "<h1>User <strong><span class='green'>$user</span></strong> successfully registered!</h1>";
+									echo "<h1>User <strong><span class='darkgray'>$user</span></strong> successfully registered!</h1>";
 									echo "<h3>Click <a href='./login.php'>here</a> to login!</h3>";
 										
 									if(!mysqli_autocommit($conn, TRUE))
