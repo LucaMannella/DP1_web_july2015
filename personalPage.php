@@ -30,53 +30,60 @@
 	/*******************************/
 	/******* ADD RESERVATION *******/
 	/*******************************/
-    				if( (isset($_POST['id'])) && (isset($_POST['menu'])) ){
-	    				$actID = (int)$_POST['id'];
-	    				$childs = (int)$_POST['menu'];
-	    				if(($childs < 0) ||($childs > 3))	{	/* Checking the constrait on the child's number */
-	    					echo "<p style='color:red'> Constrait broken! You can not reserve more then 3 places for your childs! </p></div></div>";
-	    					include_once './codePiece/footer.php';
-	    					echo "</div></BODY></HTML>";
-	    					die();
-	    				}
-	    				
+    				if( areReservationValuesSet() )
+                    {
+                        $name = $_POST['Name'];         $part = $_POST['Participants'];
+                        $sHour = $_POST['StartHour'];   $sMinute = $_POST['StartMinute'];
+                        $eHour = $_POST['EndHour'];     $eMinute = $_POST['EndMinute'];
+
 	    				$conn = connectToDB($db_host, $db_user, $db_pass, $db_name);
 	    				if($conn!==false) {
-	    					$actID = (int) sanitizeString($conn, $actID);
-	    					$childs = (int) sanitizeString($conn, $childs);
+	    					$name = sanitizeString($conn, $name);
+	    					$part = (int) sanitizeString($conn, $part);
+                            $sHour = sanitizeString($conn, $sHour);
+                            $eHour = sanitizeString($conn, $eHour);
+                            $sMinute = sanitizeString($conn, $sMinute);
+                            $eMinute = sanitizeString($conn, $eMinute);
+                            if( !areReservationValuesOk($name, $part, $sHour, $eHour, $sMinute, $eMinute) ) {
+                                mysqli_close($conn);
+                                include_once './codePiece/footer.php';
+                                echo "</div></BODY></HTML>";
+                                die();
+                            }
+                            #TODO: finish the registration!!!
+                            $start = $sHour.":".$sMinute.":00";
+                            $end = $eHour.":".$eMinute.":00";
 	    					try {
 	    						if(!mysqli_autocommit($conn, FALSE))
-	    							throw new Exception("Impossible to set autocommit to FALSE");
+	    							throw new Exception("DEBUG - Impossible to set autocommit to FALSE");
 
 	    						//in other case it's also possible to use the LOCK but we don't have administrator's privilege
-	    						$res = mysqli_query($conn, "SELECT availability FROM activities WHERE id=$actID FOR UPDATE");
+	    						$res = mysqli_query($conn, "SELECT SUM(participants)as total FROM booking WHERE '$start' < end_time AND '$end' > start_time FOR UPDATE");
 	    						if(!$res)	/* FOR UPDATE - lock the table for preventing a concurrency access */
-	    							throw new Exception("Query 1 (check availability) failed!");
+	    							throw new Exception("DEBUG - Query 1 (check availability) failed!");
 	    						$row = mysqli_fetch_array($res);
-	    						$availability = $row['availability'];
+	    						$total = $row['total'];
 	    						mysqli_free_result($res);
-	    						if($childs+1 > $availability)	/* Checking the availability */
-	    							throw new Exception("<p style='color:red'>Reservation avoided! There are not enough places for your reservation!</p>");
+	    						if($childs+$part > ROOMSIZE)	/* Checking the availability */
+	    							throw new Exception("<p style='color:red'>Reservation avoided! There are not enough places for your reservation at the specified time!</p>");
 	    						
-	    						$res = mysqli_query($conn, "SELECT * FROM reservations WHERE activity=$actID AND username='$username'");
+	    						$res = mysqli_query($conn, "SELECT * FROM booking WHERE username='$username' AND '$start' < end_time AND '$end' > start_time");
+                                if(!$res)
+                                    throw new Exception("DEBUG - Query 2 (check previous reservations in the same time slot) failed!");
 	    						$row = mysqli_fetch_array($res);
-	    						if($row!=NULL)	/* No more then 1 reservation for each activity for every user */
-	    							throw new Exception("<p style='color:red'>Invalid condition! You can't have 2 reservations in the same activity!</p>");
-	    						mysqli_free_result($res);
+                                mysqli_free_result($res);
+	    						if($row!=NULL)	/* No more then 1 reservation for each user in the same time slot */
+	    							throw new Exception("<p style='color:red'>Invalid condition! You can't have 2 overlapped reservations!</p>");
 	    						
-	    						$res = mysqli_query($conn, "INSERT INTO reservations(activity, username, childs) VALUES ($actID, '$username', $childs);");
+	    						$res = mysqli_query($conn, "INSERT INTO booking (name, username, start_time, end_time) VALUES ('$name', '$username', '$start', '$end');");
 	    						if(!$res)
-	    							throw new Exception("Query 3 (insert reservation) failed!");
-	    						
-	    						$res = mysqli_query($conn, "UPDATE activities SET availability=availability-($childs+1) WHERE id=$actID;");
-	    						if(!$res)
-	    							throw new Exception("Query 4 (update activity) failed!");
+	    							throw new Exception("DEBUG - Query 3 (insert reservation) failed!");
 	    						
 	    						if(!mysqli_commit($conn))
 	    							throw new Exception("<p style='color:red'>Impossible to commit the operation!</p>");
 	    						
 	    						if(!mysqli_autocommit($conn, TRUE))
-	    							throw new Exception("Impossible to set autocommit to TRUE");
+	    							throw new Exception("DEBUG - Impossible to set autocommit to TRUE");
 	    					}
 	    					catch (Exception $e) {
 	    						mysqli_rollback($conn);
@@ -166,11 +173,37 @@
                                 }
                                 mysqli_free_result($res);
                             endif;
-                    /*?>
-
+                    */?>
+                   <h1>Reserve a Conference</h1>
+<?php   /*************************************/
+        /******* RESERVE A CONFERENCES *******/
+        /*************************************/ ?>
+                    <blockquote>
+                    <form id='Reservation' action='./personalPage.php' method='post' style="display: inline-block">
+                        <table>
+	        			    <tr><td><label for="Name"> Conference Title: </label></td><td>&nbsp;</td></tr>
+                            <tr><td><input type="text" id="Name" name="name" maxlength="36" placeholder="Insert a title for your conference" style="width: 200px;"></td><td>&nbsp;</td></tr>
+                            <tr><td><label for="Participants"> Number of Participants: </label></td><td>&nbsp;</td></tr>
+                            <tr><td><input id="Participants" type="number" min="1" max="<?php echo ROOMSIZE ?>" placeholder="???"></td><td>&nbsp;</td></tr>
+                            <tr><td><label for="StartHour"> Starting Hour: </label></td><td><label for="StartMinute"> Starting Minute: </label></td></tr>
+                            <tr><td><?php dropDownMenu(('StartHour'), 0, 23); ?></td><td><?php dropDownMenu(('StartMinute'), 0, 59); ?></td></tr>
+                            <tr><td><label for="EndHour"> Ending Hour: </label></td><td><label for="EndMinute"> Ending Minute: </label></td></tr>
+                            <tr><td><?php dropDownMenu(('EndHour'), 0, 23); ?></td><td><?php dropDownMenu(('EndMinute'), 0, 59); ?></td></tr>
+                        </table>
+                        <br>
+                    <!-- echo "<TR><TD> Number of available place: <span id='av$i' class='green'>".$row['availability']."</span> <br>"; -->
+	        			<button type="submit" class="button" onclick="javascript:return checkConferenceValues()"> Reserve </button>
+     				</form>
+     				</blockquote>
+<!--
+                        echo "<TABLE><TR><TH><h7>".$row['name']."</h7></TH><TH><input name='id' value='$actID' type='text' readonly style='display:none'/></TH>";
+                        echo "<TD style='padding-left: 25px;'>";
+                        echo "<input class='button' id='reserve$i' type='submit' value='Reserve' style='margin-left: 20px;' onclick='return checkAvailability($i);'/></TD></TR>";
+                        echo "</TABLE></form>";
+-->
                    <h1>Today Conferences</h1>
                    <?php
-       /***********************************/
+     /***********************************/
      /******* DISPLAY CONFERENCES *******/
      /***********************************/
       				$res = mysqli_query($conn, "SELECT * FROM booking WHERE username <> '$username' ORDER BY participants DESC, name ASC");

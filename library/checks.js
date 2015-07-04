@@ -58,3 +58,40 @@ function checkAvailability(code){
 		return false;
 	}
 }
+
+function checkConferenceValues() {
+    var name = document.getElementById("Name").value;
+    var participants = document.getElementById("Participants").value;
+    if( (name==="")||(participants==="")) {
+        window.alert("You miss a field! Please fill it before send your request!");
+        return false;
+    }
+    if( (participants<1)||(participants>100)) {
+        window.alert("The number of participants must be between 1 and 100!");
+        return false;
+    }
+    var sHour = document.getElementById("StartHour").value;
+    var sMinute = document.getElementById("StartsMinute").value;
+    if( (sHour<0)||(sHour>23)||(sMinute<0)||(sMinute>59) ){
+        window.alert("The starting time values are incorrect! Please check it!\nHour[0-23]\nMinutes[0-59]");
+        return false;
+    }
+    var eHour = document.getElementById("EndHour").value;
+    var eMinute = document.getElementById("EndMinute").value;
+    if( (eHour<0)||(eHour>23)||(eMinute<0)||(eMinute>59) ){
+        window.alert("The ending time values are incorrect! Please check it!\nHour[0-23]\nMinutes[0-59]");
+        return false;
+    }
+    if(sHour > eHour) {
+        window.alert("The ending hour must be greater or equal of the starting hour!");
+        return false;
+    }
+    else if(sHour == eHour) {
+        if(sMinute >= eMinute) {
+            window.alert("The ending minute must be greater or equal of the starting minute!");
+            return false;
+        }
+    }
+
+    return true;
+}

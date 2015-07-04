@@ -33,7 +33,7 @@
      				<blockquote>
      				<form id="UserData" method="post" action="./logon.php" >
 	        			<label for="Username"> Username: </label>
-	        			<input type="text" id="Username" name="username" maxlength="32" placeholder="Insert your username here" style="width: 200px;">
+	        			<input type="text" id="Username" name="username" maxlength="36" placeholder="Insert your username here" style="width: 200px;">
 	        			<label for="Password"> Password: </label>
 	        			<input type="password" id="Password" name="password" maxlength="36" placeholder="Insert your password here" style="width: 200px;">
 	        			<br><br>

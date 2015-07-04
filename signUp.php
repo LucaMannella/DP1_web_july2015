@@ -32,7 +32,7 @@
      			<?php else: ?>
       				<form id="UserData" method="post" action="registration.php" >
 	        			<label for="Username"> Username: </label>
-	        			<input type="text" id="Username" name="username" maxlength="32" placeholder="Chose a (unique) username" style="width: 200px;">
+	        			<input type="text" id="Username" name="username" maxlength="36" placeholder="Chose a (unique) username" style="width: 200px;">
 	        			<label for="Password"> Password: </label>
 	        			<input type="password" id="Password" name="password" maxlength="36" placeholder="Choose a password" style="width: 200px;">
 	        			<label for="ConfirmPassword"> Confirm Password: </label>
