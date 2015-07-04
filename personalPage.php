@@ -133,69 +133,61 @@
     			?>
 
       			<h1>Reservations</h1>
-      			<?php	
+      			<?php
     /************************************/
     /******* DISPLAY RESERVATIONS *******/
 	/************************************/
       				$conn = connectToDB($db_host, $db_user, $db_pass, $db_name);
-      				if($conn!==false) {	// fetch the reservations
-      					$res = mysqli_query($conn, "SELECT * FROM reservations r, activities a WHERE a.id=r.activity AND username='$username' ORDER BY 'a.name'");
-      					if (!$res):
-      						echo "<p>Error during the download of the reservations!</p>";
-      					else:
-      						$row = mysqli_fetch_array($res);
-      						if($row==NULL)
-      							echo "<BLOCKQUOTE><P><span class='green'>At the moment, you do not have reservations.</span></P></BLOCKQUOTE>";
-      						else {
-      							$i = 0;
-      							while($row!=NULL) {
-      								$actID = $row['id'];	$code = $row['code'];	$childs = $row['childs'];
-      								echo "<form id='reservation$i' action='./personalPage.php' method='post'>";
-      									echo "<TABLE><TR><TH><h7>".$row['name']."</h7></TH><TH><input name='code' value='$code' type='text' readonly style='display:none'/></TH>";
-      									if($childs>0)
-      										echo "<TR><TD style='text-align: center'> You reserved a place for you and <span class='green'>$childs</span> place(s) for your childs. </TD>";
-      									else
-      										echo "<TR><TD> You reserved a place for this activity. </TD>";
-      									
-	      								echo "<TD style='padding-left: 25px;'>";
-	      								echo "<input class='button' id='remove$i' type='submit' value='Remove Reservation' style='margin-left: 20px;'/>";	
-	      							echo "</TD></TR></TABLE></form>";
-	      							$row = mysqli_fetch_array($res);
-	      							$i++;
-      							}
-      						}
-      						mysqli_free_result($res);
-      					endif;
-      			?>
+      				if($conn != false) {	// fetch the reservations
+                        /*	$res = mysqli_query($conn, "SELECT * FROM reservations r, activities a WHERE a.id=r.activity AND username='$username' ORDER BY 'a.name'");
+                            if (!$res):
+                                echo "<p>Error during the download of the reservations!</p>";
+                            else:
+                                $row = mysqli_fetch_array($res);
+                                if($row==NULL)
+                                    echo "<BLOCKQUOTE><P><span class='green'>At the moment, you do not have reservations.</span></P></BLOCKQUOTE>";
+                                else {
+                                    $i = 0;
+                                    while($row!=NULL) {
+                                        $actID = $row['id'];	$code = $row['code'];	$childs = $row['childs'];
+                                        echo "<form id='reservation$i' action='./personalPage.php' method='post'>";
+                                            echo "<TABLE><TR><TH><h7>".$row['name']."</h7></TH><TH><input name='code' value='$code' type='text' readonly style='display:none'/></TH>";
+                                            if($childs>0)
+                                                echo "<TR><TD style='text-align: center'> You reserved a place for you and <span class='green'>$childs</span> place(s) for your childs. </TD>";
+                                            else
+                                                echo "<TR><TD> You reserved a place for this activity. </TD>";
 
-     			<h1>Reservable Activities</h1>
-     			<?php
-     /*********************************************/
-     /******* DISPLAY RESERVABLE ACTIVITIES *******/
-     /*********************************************/
-     				$query2 = "SELECT activity FROM reservations WHERE username='$username'";
-      				$res = mysqli_query($conn, "SELECT id, name, places, availability FROM activities WHERE id NOT IN (".$query2.") AND availability > 0 ORDER BY availability DESC, places ASC");
-     				//$res = mysqli_query($conn, "SELECT * FROM reservations r, activities a WHERE a.id=r.activity");
-      				if (!$res):
+                                            echo "<TD style='padding-left: 25px;'>";
+                                            echo "<input class='button' id='remove$i' type='submit' value='Remove Reservation' style='margin-left: 20px;'/>";
+                                        echo "</TD></TR></TABLE></form>";
+                                        $row = mysqli_fetch_array($res);
+                                        $i++;
+                                    }
+                                }
+                                mysqli_free_result($res);
+                            endif;
+                    /*?>
+
+                   <h1>Today Conferences</h1>
+                   <?php
+       /***********************************/
+     /******* DISPLAY CONFERENCES *******/
+     /***********************************/
+      				$res = mysqli_query($conn, "SELECT * FROM booking WHERE username <> '$username' ORDER BY participants DESC, name ASC");
+     				if (!$res):
       					echo "<p>Error during the download of the reservations!</p>";
       				else:
       					$row = mysqli_fetch_array($res);
       					if($row==NULL)
-      						echo "<BLOCKQUOTE><P><span class='green'>There are no more available activities.</span></h3></P></BLOCKQUOTE>";
+      						echo "<BLOCKQUOTE><p><span class='darkgray'>There are no reservations right now.</span></h3></p></BLOCKQUOTE>";
       					else {
-      						$i = 0;
-      						while($row!=NULL) {
-      							$actID = $row['id'];
-      							echo "<form id='activity$i' action='./personalPage.php' method='post'>";
-      								echo "<TABLE><TR><TH><h7>".$row['name']."</h7></TH><TH><input name='id' value='$actID' type='text' readonly style='display:none'/></TH>";
-      								echo "<TR><TD> Number of available place: <span id='av$i' class='green'>".$row['availability']."</span> <br>";
-      								echo "Total places for the activity: <span id='place$i' class='cyan'>".$row['places']."</span> </TD>";
-      								echo "<TD style='padding-left: 25px;'>";	dropDownMenu(('menu'), 0, 3);
-      								echo "<input class='button' id='reserve$i' type='submit' value='Reserve' style='margin-left: 20px;' onclick='return checkAvailability($i);'/></TD></TR>";	
-      							echo "</TABLE></form>";
-      							$row = mysqli_fetch_array($res);
-      							$i++;
-      						}
+                            while ($row != NULL) {
+                                echo "<h2><span class='darkgray'>Conference: </span>".$row['name']."</h2>",
+                                    "<p>Reserved by: <span class='cyan'>".$row['username']."</span><br>",
+                                    "The conference starts at: <span class='cyan'>".$row['start_time']."</span> and end at: <span class='cyan'>".$row['end_time']."</span><br>",
+                                    "Number of participants to the conference: <span class='cyan'>".$row['participants']."</span> </p><br>";
+                                $row = mysqli_fetch_array($res);
+                            }
       					}
       					mysqli_free_result($res);
       				endif;
@@ -203,14 +195,14 @@
       			?>
       			
       		<?php else: ?>
-      			<h3>You can't see this page if you are not a registred user!</h3>
+      			<h3>You can't see this page if you are not a registered user!</h3>
       			<h4>Go <strong><a href='signUp.php'>here</a></strong> for create a new account!</h4>
-      			<h4>If you are already registred, please <strong><a href='login.php'>log in</a></strong>!</h4>
+      			<h4>If you are already registered, please <strong><a href='login.php'>log in</a></strong>!</h4>
       		<?php endif; ?>
       		</div>
 		</div>
   		
-	  	<?php include_once './codePiece/footer.php';	?>
+	  	<?php include_once './codePiece/footer.php'; ?>
 	</div>
 
     <script type="text/javascript">

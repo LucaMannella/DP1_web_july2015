@@ -18,7 +18,7 @@
 					
 				if( validLogin($conn, "users", $user, $pass) ){
 					$ResultString = "<h1><span class='darkgray'>Successful</span> Login!</h1>";
-					$ResultString = $ResultString."<h3>You have been succesfully logged in!</h3><h3>Click <a href='./personalPage.php'>here</a> to book an activity!</h3>";
+					$ResultString = $ResultString."<h3>You have been successfully logged in!</h3><h3>Click <a href='./personalPage.php'>here</a> to access to your <strong>Personal Page</strong>!</h3>";
 					$_SESSION['user'] = $user;
 					$username = $user;
 					$_SESSION['pass'] = $pass;
