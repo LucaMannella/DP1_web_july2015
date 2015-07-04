@@ -24,7 +24,7 @@
     		
     		<div id="main">
     			<?php require_once './codePiece/noscript.php';	?>
-    		    <?php if(!$loggedIn) echo "<h1>Enter <span class='gray'>Your</span> <span class='green'>Data</span></h1>"; ?>
+    		    <?php if(!$loggedIn) echo "<h1><span class='darkgray'>Enter</span> <span class='gray'>Your</span> Data</h1>"; ?>
       			<blockquote>
       			<?php if($loggedIn): ?>
       				<h2>You are already <span class='green'>logged in</span>.</h2>

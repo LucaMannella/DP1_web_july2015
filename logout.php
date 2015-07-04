@@ -5,12 +5,13 @@
 	if( !isset($loggedIn) || (!$loggedIn) ){
 		$result = "<h2>You are not logged in!</h2>";
 		if( isset($TimeoutExpired)&&($TimeoutExpired) )
-			$result = $result."<p style='color:red;'>Tmeout expired! You have not interacted with our server for too much time!</p>";
+			$result = $result."<p class='red'>Timeout expired! You have not interacted with our server for too much time!</p>";
 	}
 	else {
 		destroySession();
-		$result = "<h2>You have been succesfully <span class='green'>logged out</span>.</h2>"
-				."<p>Did you make a mistake? Click <a href='./login.php'><span class='green'>here</span></a> to login again!</p>";
+		$result = "<h2>You have been successfully <span class='darkgray'>logged out</span>.</h2>"
+				."<p class='darkgray'>Did you make a mistake? Click <a href='./login.php'>here</a> to login again!</p>";
+        $goodbye = true;
 	}
     $loggedIn = false;
 ?>

@@ -3,13 +3,13 @@
 <div id="sidebar">
     <?php
         if( isset($goodbye) && ($goodbye) ) {
-            echo "<blockquote style='padding: 0 0 0 1px;'><h7>Goodbye:</h7>",
+            echo "<blockquote style='padding: 0 0 0 1px;'><h6>Goodbye:</h6>",
                 "<p style='padding: 0 0 0 5px;'>$username</p></blockquote>";
             $loggedIn   = false;
             $goodbye    = false;
         }
         elseif( isset($loggedIn) && ($loggedIn) )
-            echo "<blockquote style='padding: 0 0 0 1px;'><h7>Welcome:</h7>",
+            echo "<blockquote style='padding: 0 0 0 1px;'><h6>Welcome:</h6>",
                 "<p style='padding: 0 0 0 5px;'>$username</p></blockquote>";
     ?>
     <h2> Options </h2>

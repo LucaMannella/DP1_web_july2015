@@ -4,7 +4,7 @@
 	require_once './library/util.php';
 
     if( isset($loggedIn) && ($loggedIn) ):
-		$ResultString = "<h2>You are already <span class='green'>logged in</span>.</h2>";
+		$ResultString = "<h2>You are already <span class='darkgray'>logged in</span>.</h2>";
 	else:
 		if(count($_POST)==0)
 			$ResultString = "<h3>Please before visit this page go <a href='login.php'>here</a> and enter your data!</h3>";
@@ -17,7 +17,7 @@
 				$pass = md5( sanitizeString($conn, $_POST['password']) );	/* md5 create the hash of the password */
 					
 				if( validLogin($conn, "users", $user, $pass) ){
-					$ResultString = "<h1>Succesful <span class='green'>Login</span>!</h1>";
+					$ResultString = "<h1><span class='darkgray'>Successful</span> Login!</h1>";
 					$ResultString = $ResultString."<h3>You have been succesfully logged in!</h3><h3>Click <a href='./personalPage.php'>here</a> to book an activity!</h3>";
 					$_SESSION['user'] = $user;
 					$username = $user;
@@ -26,7 +26,7 @@
 					$loggedIn = TRUE;
 				}
 				else {
-					$ResultString = "<h3>Invalid <span class='green'>username</span> or <span class='green'>password</span>.</h3>
+					$ResultString = "<h3>Invalid <span class='darkgray'>username</span> or <span class='darkgray'>password</span>.</h3>
 					<h3>Please go <a href='login.php'>back</a> and try again!</h3>
 					<h3>If you are not register you can do a free registration <a href='./signUp.php'>here</a>!</h3>";
 				}

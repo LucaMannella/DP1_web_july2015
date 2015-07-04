@@ -29,7 +29,7 @@
      			<?php else: 
      				if( (isset($_GET["msg"])) && ($_GET["msg"]=="SessionTimeOutExpired") )
      					echo "<p class='red'>Tmeout expired! You have not interacted with our server for too much time!<br>Please, login again! </p>";	?>
-     				<h1>Enter <span class='gray'>Your</span> <span class='green'>Data</span></h1>
+     				<h1><span class='darkgray'>Enter</span> <span class='gray'>Your</span> Data</h1>
      				<blockquote>
      				<form id="UserData" method="post" action="./logon.php" >
 	        			<label for="Username"> Username: </label>
