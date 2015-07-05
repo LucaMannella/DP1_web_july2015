@@ -32,7 +32,7 @@
 	/*******************************/
     				if( areReservationValuesSet() )
                     {
-                        $name = $_POST['Name'];         $part = $_POST['Participants'];
+                        $name = $_POST['name'];         $part = $_POST['participants'];
                         $sHour = $_POST['StartHour'];   $sMinute = $_POST['StartMinute'];
                         $eHour = $_POST['EndHour'];     $eMinute = $_POST['EndMinute'];
 
@@ -44,52 +44,47 @@
                             $eHour = sanitizeString($conn, $eHour);
                             $sMinute = sanitizeString($conn, $sMinute);
                             $eMinute = sanitizeString($conn, $eMinute);
-                            if( !areReservationValuesOk($name, $part, $sHour, $eHour, $sMinute, $eMinute) ) {
-                                mysqli_close($conn);
-                                include_once './codePiece/footer.php';
-                                echo "</div></BODY></HTML>";
-                                die();
-                            }
-                            #TODO: finish the registration!!!
-                            $start = $sHour.":".$sMinute.":00";
-                            $end = $eHour.":".$eMinute.":00";
-	    					try {
-	    						if(!mysqli_autocommit($conn, FALSE))
-	    							throw new Exception("DEBUG - Impossible to set autocommit to FALSE");
+                            if( areReservationValuesOk($part, $sHour, $eHour, $sMinute, $eMinute) ) {
+                                $start = $sHour.":".$sMinute.":00";
+                                $end = $eHour.":".$eMinute.":00";
+                                try {
+                                    if(!mysqli_autocommit($conn, FALSE))
+                                        throw new Exception("DEBUG - Impossible to set autocommit to FALSE");
 
-	    						//in other case it's also possible to use the LOCK but we don't have administrator's privilege
-	    						$res = mysqli_query($conn, "SELECT SUM(participants)as total FROM booking WHERE '$start' < end_time AND '$end' > start_time FOR UPDATE");
-	    						if(!$res)	/* FOR UPDATE - lock the table for preventing a concurrency access */
-	    							throw new Exception("DEBUG - Query 1 (check availability) failed!");
-	    						$row = mysqli_fetch_array($res);
-	    						$total = $row['total'];
-	    						mysqli_free_result($res);
-	    						if($childs+$part > ROOMSIZE)	/* Checking the availability */
-	    							throw new Exception("<p style='color:red'>Reservation avoided! There are not enough places for your reservation at the specified time!</p>");
-	    						
-	    						$res = mysqli_query($conn, "SELECT * FROM booking WHERE username='$username' AND '$start' < end_time AND '$end' > start_time");
-                                if(!$res)
-                                    throw new Exception("DEBUG - Query 2 (check previous reservations in the same time slot) failed!");
-	    						$row = mysqli_fetch_array($res);
-                                mysqli_free_result($res);
-	    						if($row!=NULL)	/* No more then 1 reservation for each user in the same time slot */
-	    							throw new Exception("<p style='color:red'>Invalid condition! You can't have 2 overlapped reservations!</p>");
-	    						
-	    						$res = mysqli_query($conn, "INSERT INTO booking (name, username, start_time, end_time) VALUES ('$name', '$username', '$start', '$end');");
-	    						if(!$res)
-	    							throw new Exception("DEBUG - Query 3 (insert reservation) failed!");
-	    						
-	    						if(!mysqli_commit($conn))
-	    							throw new Exception("<p style='color:red'>Impossible to commit the operation!</p>");
-	    						
-	    						if(!mysqli_autocommit($conn, TRUE))
-	    							throw new Exception("DEBUG - Impossible to set autocommit to TRUE");
-	    					}
-	    					catch (Exception $e) {
-	    						mysqli_rollback($conn);
-	    						mysqli_autocommit($conn, TRUE);
-	    						echo "Rollback ".$e->getMessage();
-	    					}
+                                    //in other case it's also possible to use the LOCK but we don't have administrator's privilege
+                                    $res = mysqli_query($conn, "SELECT SUM(participants)as total FROM booking WHERE '$start' < end_time AND '$end' > start_time FOR UPDATE");
+                                    if(!$res)	/* FOR UPDATE - lock the table for preventing a concurrency access */
+                                        throw new Exception("DEBUG - Query 1 (check availability) failed!");
+                                    $row = mysqli_fetch_array($res);
+                                    $total = $row['total'];
+                                    mysqli_free_result($res);
+                                   if( ($total+$part) > ROOMSIZE )	/* Checking the availability */
+                                        throw new Exception("<p style='color:red'>Reservation avoided! There are not enough places for your reservation at the specified time!</p>");
+
+                                    $res = mysqli_query($conn, "SELECT * FROM booking WHERE username='$username' AND '$start' < end_time AND '$end' > start_time");
+                                    if(!$res)
+                                        throw new Exception("DEBUG - Query 2 (check previous reservations in the same time slot) failed!");
+                                    $row = mysqli_fetch_array($res);
+                                    mysqli_free_result($res);
+                                    if($row!=NULL)	/* No more then 1 reservation for each user in the same time slot */
+                                        throw new Exception("<p style='color:red'>Invalid condition! You can't have 2 overlapped reservations!</p>");
+
+                                    $res = mysqli_query($conn, "INSERT INTO booking (name, username, participants, start_time, end_time) VALUES ('$name', '$username', '$part', '$start', '$end');");
+                                    if(!$res)
+                                        throw new Exception("DEBUG - Query 3 (insert reservation) failed!");
+
+                                    if(!mysqli_commit($conn))
+                                        throw new Exception("<p style='color:red'>Impossible to commit the operation!</p>");
+
+                                    if(!mysqli_autocommit($conn, TRUE))
+                                        throw new Exception("DEBUG - Impossible to set autocommit to TRUE");
+                                }
+                                catch (Exception $e) {
+                                    mysqli_rollback($conn);
+                                    mysqli_autocommit($conn, TRUE);
+                                    echo "Rollback ".$e->getMessage();
+                                }
+                            }
 	    					mysqli_close($conn);
 	    				}
     				}
@@ -184,7 +179,7 @@
 	        			    <tr><td><label for="Name"> Conference Title: </label></td><td>&nbsp;</td></tr>
                             <tr><td><input type="text" id="Name" name="name" maxlength="36" placeholder="Insert a title for your conference" style="width: 200px;"></td><td>&nbsp;</td></tr>
                             <tr><td><label for="Participants"> Number of Participants: </label></td><td>&nbsp;</td></tr>
-                            <tr><td><input id="Participants" type="number" min="1" max="<?php echo ROOMSIZE ?>" placeholder="???"></td><td>&nbsp;</td></tr>
+                            <tr><td><input type="number" id="Participants" name="participants" min="1" max="<?php echo ROOMSIZE ?>" placeholder="???"></td><td>&nbsp;</td></tr>
                             <tr><td><label for="StartHour"> Starting Hour: </label></td><td><label for="StartMinute"> Starting Minute: </label></td></tr>
                             <tr><td><?php dropDownMenu(('StartHour'), 0, 23); ?></td><td><?php dropDownMenu(('StartMinute'), 0, 59); ?></td></tr>
                             <tr><td><label for="EndHour"> Ending Hour: </label></td><td><label for="EndMinute"> Ending Minute: </label></td></tr>
