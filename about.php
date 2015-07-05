@@ -17,27 +17,30 @@
         <?php require_once './codePiece/header.php'; ?>
   		
   		<div id="content-wrap">
-            <img src="images/sala-congressi-resized.jpg" width="950" height="250" alt="headerphoto" class="no-border" />
+            <img src="images/2g.jpg" width="950" height="250" alt="headerphoto" class="no-border" />
             <?php require_once './codePiece/sidebar.php'; ?>
     		
     		<div id="main">
 				<?php require_once './codePiece/noscript.php';	?>
-      			<h1>Information <span class="gray">about the</span> <span class="green">Website</span> <span class="gray">and the</span> <span class="green">Sporting Club</span></h1>
-      			<p>The <strong>Sporting Club Pinamare&copy;</strong> is one of the most suggestive club of the west Ligurian coast.<br>
-      				It's surrounded by vast pine forest of Pinamare in <strong>Andora</strong>; a place where fascinating pine trees and typical Mediterranean plants face the sea, offering a unique and engaging landscape.</p>
-				<p>The club was founded in the early 80s with the intention of creating not only a sporting club but a real social gathering where everybody can spend whole days of sport and relaxation surrounded by nature and tranquility.</p>
-				<p>The club has several tennis courts, a football pitch with synthetic grass and an Olympic swimming pool. It also has a beautiful restaurant and clubhouse.</p>
-				<br>				
+      			<h1><span class="gray">Some</span> <span class="darkgray">Additional</span> Informations</h1>
+                <p><strong>Andora is located in the western part of the Riviera, between the bays of Capo Mele (to the east) and Cape Mimosa (to the west),</strong>
+                    at the mouth of the river that runs through it: Merula. Its extensive beaches are considered among the most beautiful in the Ligurian Riviera and stretching for almost 2 km in length.</p>
+                <p>Continuously since 1986, the resort boasts a Blue Flag for the excellent quality of marine waters.
+                    It is 55 km from the provincial capital Savona, 15 km from Imperia, 40 km from Sanremo and 100 km from Genoa and Monaco.</p>
+                <p> A 5 min away we find two little towns certified for years as <strong>"The Most Beautiful Villages of Italy"</strong>: Laigueglia and Cervo.<br>
+                    These old Towns are practicable only on foot and have been preserved with their buildings, centuries old, and their cobbled streets where you will find shops of artisans and artists.</p>
+                <br>
+                <h2>Seascape of Andora</h2>
+                <img src="images/andora.jpg" width="700" height="230" alt="Andora's seascape." class="no-border" style="margin:0 0 30px 0;" />
+                <br>
+                <p> <span style="color:red">Disclaimer</span>:<br> All material relating to the hotels is owned by the Hotel<strong> I 2 Gabbiani&copy;</strong> (Andora) and <strong>Artemide Centro Congressi&copy;</strong> (Castel San Pietro). I do not hold any rights on them.<br>
+                    I chose to represent these hotels in my website for creating a more concrete work and to pay homage to a place where I grew up (the first one) and a place that I was very impressed.</p>
+                <br>
 				<div class="maps">
 					<h2>Where to find us</h2>
-					<p>Sporting Pinamare <br> Viale Argentina, 5 - Andora(SV) - Italy</p>
-					<iframe height="350" width="500"src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d22976.63204118028!2d8.161554!3d43.957731!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x937a3ecaa7914730!2sSporting+Pinamare+Andora+Srl!5e0!3m2!1sit!2sit!4v1435158835838" style="border: 0; margin: 0 0 30px 0;"></iframe>
+					<p>Hotel I 2 Gabbiani <br> Via Mezz'acqua 2 - Andora (SV) - Italy</p>
+                    <iframe height="350" width="500" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2872.216116052667!2d8.150782699999999!3d43.9548943!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12d242b486e1c053%3A0x37370071d3296c7d!2sHotel+I+Due+Gabbiani!5e0!3m2!1sit!2sit!4v1436134947670" frameborder="0" style="border: 0; margin: 0 0 30px 0;" allowfullscreen></iframe>
 				</div>
-				<p> <span style="color:red">Disclaimer</span>:<br> All material relating to the sporting club is owned by the <strong>Sporting Club Pinamare&copy;</strong> and I do not hold any rights on it. 
-					I have chosen to represent this country club in my website simply to pay homage to my home town and to a place where I grew up and where I learned to love tennis.</p>
-      			<br>
-				<h3 class="green">Seascape of Andora</h3>
-				<img src="images/andora.jpg" width="700" height="230" alt="Andora's seascape." class="no-border" style="margin:0 0 30px 0;" />
       		</div>
 		</div>
 		<?php include_once './codePiece/footer.php'; ?>

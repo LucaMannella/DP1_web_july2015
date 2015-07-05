@@ -1,8 +1,8 @@
 <?php /** Created by Luca on Date: 03/07/2015 at Time: 19:50 **/ ?>
 
 <div id='header'>
-    <h1 id='logo'>Reservations<span class='gray'>Conference</span>Hall</h1>
-        <h2 id='slogan'>Comfort &amp; Professionality at your service!</h2>
+    <h1 id='logo'><span class='darkgray'>LM</span> <span class="gray">Conference</span> Hotel</h1>
+        <h2 id='slogan'>Comfort &amp; Professionalism at your service!</h2>
         <ul id='MenuAlto'>
             <li id='Home'><a href='./index.php'><span>Home</span></a></li>
             <li id='Conferences'><a href='./conferences.php'><span>Conferences</span></a></li>
