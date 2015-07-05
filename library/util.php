@@ -16,16 +16,6 @@
 ?>
 
 <?php
-    function areReservationValuesSet() {
-        if( (isset($_POST['Name'])) && (isset($_POST['Participants']))
-            && (isset($_POST['StartHour'])) && (isset($_POST['StartMinute']))
-            && (isset($_POST['EndHour'])) && (isset($_POST['EndMinute']))
-        )
-            return true;
-        else
-            return false;
-    }
-
     /**
      *
      * This functions controls if the values relative to the insertion of a new reservation are OK. <BR>
@@ -74,6 +64,25 @@
         return $toRet;
     }
 
+    /**
+     * This function checks if all the values necessary for the registration of a conference are set or no.
+     * @return bool - True if all the values are not empty, false otherwise.
+     */
+    function areReservationValuesSet() {
+        if( (isset($_POST['Name'])) && (isset($_POST['Participants']))
+            && (isset($_POST['StartHour'])) && (isset($_POST['StartMinute']))
+            && (isset($_POST['EndHour'])) && (isset($_POST['EndMinute']))
+        )
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * This function checks if all the values necessary for the registration of a new user are set in $_POST variable.<BR>
+     * This function prints also on the client screen all the missing values.
+     * @return bool - True if all the values are not empty, false otherwise.
+     */
 	function validRegistrationValues() {
 		# empty() { return (isset($var) || $var == false) }
 		# my previous check --> if ( !isset($_POST['username']) )||( $_POST['username']==="" )
@@ -96,7 +105,12 @@
 		}
 		return $toReturn;
 	}
-	
+
+    /**
+     * This function checks if all the values necessary for the login are set in $_POST variable.<BR>
+     * This function prints also on the client screen all the missing values.
+     * @return bool - True if all the values are not empty, false otherwise.
+     */
 	function validLoginValues() {
 		$toReturn = true;
 		if( empty($_POST['username']) ){
@@ -109,7 +123,14 @@
 		}
 		return $toReturn;
 	}
-	
+
+    /**
+     * This function checks if a username is already present in the database or not.
+     * @param $conn - The connection to the database.
+     * @param $table - The name of the table in which the check will be performed.
+     * @param $username - The inserted username.
+     * @return bool - True if the username doesn't exist, false otherwise.
+     */
 	function validUserName($conn, $table, $username) {
 		$toReturn = false;
 		$res = mysqli_query($conn, "SELECT * FROM $table WHERE username='$username'");
@@ -123,18 +144,30 @@
 		mysqli_free_result($res);
 		return $toReturn;
 	}
-	
+
+    /**
+     * This function checks if there is a user with the inserted Username and Password
+     * @param $conn - The connection to the database.
+     * @param $table - The name of the table in which the check will be performed.
+     * @param $username - The inserted username.
+     * @param $password - The inserted password.
+     * @return bool - True if the username doesn't exist, false otherwise.
+     */
 	function validLogin($conn, $table, $username, $password) {
 		$toReturn = true;
-		$res = mysqli_query($conn, "SELECT * FROM users WHERE username='$username' AND password='$password'");
-		if (!$res)
-			echo "<p>Error during username checking!</p>";
+		$res = mysqli_query($conn, "SELECT * FROM $table WHERE username='$username' AND password='$password'");
+		if ($res==false) {
+            echo "<p>Error during username checking!</p>";
+            $toReturn = false;
+        }
 		else {
 			$row = mysqli_fetch_array($res);
-			if((empty( $row['username'] ))||(empty( $row['username'] )))
+			if(( empty($row['username']) )||( empty($row['password']) ))
 				$toReturn = false;
+            if(( $username != $row['username'] )||( $password != $row['password'] ))
+                $toReturn = false;
+            mysqli_free_result($res);
 		}
-		mysqli_free_result($res);
 		return $toReturn;
 	}
 	
