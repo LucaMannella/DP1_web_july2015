@@ -37,28 +37,28 @@
             $toRet = false;
         }
 
-        if( (sHour<0)||(sHour>23)||(sMinute<0)||(sMinute>59) ){
+        if( ($sHour<0)||($sHour>23)||($sMinute<0)||($sMinute>59) ){
             echo "<p style='color:red'>The starting time values are incorrect! Please check it! Hour[0-23] Minutes[0-59]</p>";
             $toRet = false;
         }
 
-        if( (eHour<0)||(eHour>23)||(eMinute<0)||(eMinute>59) ){
+        if( ($eHour<0)||($eHour>23)||($eMinute<0)||($eMinute>59) ){
             echo "<p style='color:red'>The ending time values are incorrect! Please check it! Hour[0-23] Minutes[0-59]</p>";
             $toRet = false;
         }
 
-        if(sHour > eHour) {
+        if($sHour > $eHour) {
             echo "<p style='color:red'>The ending hour must be greater or equal of the starting hour!</p>";
             $toRet = false;
         }
-        else if(sHour == eHour) {
-            if(sMinute >= eMinute) {
+        else if($sHour == $eHour) {
+            if($sMinute >= $eMinute) {
                 echo "<p style='color:red'>The ending minute must be greater or equal of the starting minute!</p>";
                 $toRet = false;
             }
         }
 
-        if(toRet == false)
+        if($toRet == false)
             echo "</div></div>";
 
         return $toRet;
@@ -69,7 +69,7 @@
      * @return bool - True if all the values are not empty, false otherwise.
      */
     function areReservationValuesSet() {
-        if( (isset($_POST['Name'])) && (isset($_POST['Participants']))
+        if( (isset($_POST['name'])) && (isset($_POST['participants']))
             && (isset($_POST['StartHour'])) && (isset($_POST['StartMinute']))
             && (isset($_POST['EndHour'])) && (isset($_POST['EndMinute']))
         )

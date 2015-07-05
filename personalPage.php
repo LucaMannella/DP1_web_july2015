@@ -27,10 +27,49 @@
     		<?php if($loggedIn):
 
     			if(count($_POST)!==0) {
+    /**********************************/
+    /******* REMOVE RESERVATION *******/
+    /**********************************/
+                    if(isset($_POST['id'])) {
+                        $id = $_POST['id'];
+
+                        $conn = connectToDB($db_host, $db_user, $db_pass, $db_name);
+                        if($conn !== false) {
+                            $id = sanitizeString($conn, $id);
+                            try {
+                                if(!mysqli_autocommit($conn, FALSE))
+                                    throw new Exception("DEBUG - Impossible to set autocommit to FALSE");
+                    #TODO: check if the for update is necessary or not!
+                                $res = mysqli_query($conn, "SELECT * FROM booking WHERE id=$id FOR UPDATE ");
+                                if(!$res)	# Fetch data from the database
+                                    throw new Exception("DEBUG - Query 1 (fetch reservation's info) failed!");
+                                $row = mysqli_fetch_array($res);
+                                if($row==NULL)
+                                    throw new Exception("<p class='red'>The desired reservation does not exist!</p>");
+                                mysqli_free_result($res);
+
+                                $res = mysqli_query($conn, "DELETE FROM booking WHERE id=$id");
+                                if(!$res)	# Remove reservation from the database
+                                    throw new Exception("DEBUG - Query 2 (delete reservation) failed!");
+
+                                if(!mysqli_commit($conn))
+                                    throw new Exception("<p style='color:red'>Impossible to commit the operation!</p>");
+
+                                if(!mysqli_autocommit($conn, TRUE))
+                                    throw new Exception("DEBUG - Impossible to set autocommit to TRUE");
+                            }
+                            catch (Exception $e) {
+                                mysqli_rollback($conn);
+                                mysqli_autocommit($conn, TRUE);
+                                echo "Rollback ".$e->getMessage();
+                            }
+                            mysqli_close($conn);
+                        }
+                    }
 	/*******************************/
 	/******* ADD RESERVATION *******/
 	/*******************************/
-    				if( areReservationValuesSet() )
+    				elseif( areReservationValuesSet() )
                     {
                         $name = $_POST['name'];         $part = $_POST['participants'];
                         $sHour = $_POST['StartHour'];   $sMinute = $_POST['StartMinute'];
@@ -88,91 +127,46 @@
 	    					mysqli_close($conn);
 	    				}
     				}
-    				
-    /**********************************/
-    /******* REMOVE RESERVATION *******/
-    /**********************************/
-    				elseif(isset($_POST['code'])) {
-						$code = $_POST['code'];
-						
-						$conn = connectToDB($db_host, $db_user, $db_pass, $db_name);
-						if($conn !== false) {
-							$code = sanitizeString($conn, $code);
-							try {
-								if(!mysqli_autocommit($conn, FALSE))
-									throw new Exception("Impossible to set autocommit to FALSE");
-								
-								$res = mysqli_query($conn, "SELECT * FROM reservations WHERE code=$code");
-								if(!$res)	/** Fetch data from the database **/ 
-									throw new Exception("Query 1 (fetch reservation's info) failed!");
-								$row = mysqli_fetch_array($res);
-								$childs = $row['childs'];	$actID = $row['activity'];
-								mysqli_free_result($res);
-								
-								$res = mysqli_query($conn, "DELETE FROM reservations WHERE code=$code");
-								if(!$res)	/** Remove reservation from the database **/
-									throw new Exception("Query 2 (delete reservation) failed!");
-								
-								$res = mysqli_query($conn, "UPDATE activities SET availability=availability+($childs+1) WHERE id=$actID	");
-								if(!$res)	/** Restore the right availability **/
-									throw new Exception("Query 3 (update activity) failed!");
-								
-								if(!mysqli_commit($conn))
-									throw new Exception("<p style='color:red'>Impossible to commit the operation!</p>");
-									
-								if(!mysqli_autocommit($conn, TRUE))
-									throw new Exception("Impossible to set autocommit to TRUE");
-							}
-							catch (Exception $e) {
-								mysqli_rollback($conn);
-								mysqli_autocommit($conn, TRUE);
-								echo "Rollback ".$e->getMessage();
-							}
-							mysqli_close($conn);
-						}
-    				}
 	    		}
     			?>
 
-      			<h1>Reservations</h1>
+      			<h1>Your Conferences</h1>
       			<?php
     /************************************/
     /******* DISPLAY RESERVATIONS *******/
 	/************************************/
-      				$conn = connectToDB($db_host, $db_user, $db_pass, $db_name);
-      				if($conn != false) {	// fetch the reservations
-                        /*	$res = mysqli_query($conn, "SELECT * FROM reservations r, activities a WHERE a.id=r.activity AND username='$username' ORDER BY 'a.name'");
+                    $conn = connectToDB($db_host, $db_user, $db_pass, $db_name);
+      				if($conn !== false) {	# fetch the reservations
+                        	$res = mysqli_query($conn, "SELECT * FROM booking WHERE username='$username' ORDER BY participants");
                             if (!$res):
-                                echo "<p>Error during the download of the reservations!</p>";
+                                echo "<p class='red'>Error during the download of the reservations!</p>";
                             else:
                                 $row = mysqli_fetch_array($res);
                                 if($row==NULL)
-                                    echo "<BLOCKQUOTE><P><span class='green'>At the moment, you do not have reservations.</span></P></BLOCKQUOTE>";
+                                    echo "<BLOCKQUOTE><P><span class='darkgray'>At the moment, you do not have reservations.</span></P></BLOCKQUOTE>";
                                 else {
                                     $i = 0;
                                     while($row!=NULL) {
-                                        $actID = $row['id'];	$code = $row['code'];	$childs = $row['childs'];
+                                        $id = $row['id'];	$participants = $row['participants'];
+                                        $start = $row['start_time'];    $end = $row['end_time'];
                                         echo "<form id='reservation$i' action='./personalPage.php' method='post'>";
-                                            echo "<TABLE><TR><TH><h7>".$row['name']."</h7></TH><TH><input name='code' value='$code' type='text' readonly style='display:none'/></TH>";
-                                            if($childs>0)
-                                                echo "<TR><TD style='text-align: center'> You reserved a place for you and <span class='green'>$childs</span> place(s) for your childs. </TD>";
-                                            else
-                                                echo "<TR><TD> You reserved a place for this activity. </TD>";
-
-                                            echo "<TD style='padding-left: 25px;'>";
-                                            echo "<input class='button' id='remove$i' type='submit' value='Remove Reservation' style='margin-left: 20px;'/>";
-                                        echo "</TD></TR></TABLE></form>";
+                                            echo "<TABLE>",
+                                                "<TR><TH><h7>".$row['name']."</h7></TH><TH><input name='id' value='$id' type='text' readonly style='display:none'/></TH></TR>",
+                                                "<TR><TD style='text-align: center'>Number of participants = <span class='darkgray'>$participants</span></TD><TD>&nbsp;</TD>",
+                                                "<TR><TD> Start at = $start </TD><TD> End at = $end </TD></TR>",
+                                                "<TR><TD>&nbsp;</TD><TD><input class='button' id='remove$i' type='submit' value='Remove Reservation' style='margin-left: 20px;'/></TD></TR>";
+                                            echo "</TABLE></form>";
                                         $row = mysqli_fetch_array($res);
                                         $i++;
                                     }
                                 }
                                 mysqli_free_result($res);
                             endif;
-                    */?>
+                    ?>
                    <h1>Reserve a Conference</h1>
-<?php   /*************************************/
-        /******* RESERVE A CONFERENCES *******/
-        /*************************************/ ?>
+<?php   /************************************/
+        /******* RESERVE A CONFERENCE *******/
+        /************************************/ ?>
                     <blockquote>
                     <form id='Reservation' action='./personalPage.php' method='post' style="display: inline-block">
                         <table>

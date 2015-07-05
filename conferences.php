@@ -33,6 +33,8 @@
 
                         else {
                             $row = mysqli_fetch_array($res);
+                            if($row == NULL)
+                                echo "<BLOCKQUOTE><p><span class='darkgray'>There are no reservations right now.</span></h3></p></BLOCKQUOTE>";
                             while ($row != NULL) {
                                 echo "<h2><span class='darkgray'>Conference: </span>".$row['name']."</h2>",
                                     "<p>The conference starts at: <span class='cyan'>".$row['start_time']."</span> and end at: <span class='cyan'>".$row['end_time']."</span><br>",
