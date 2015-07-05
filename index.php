@@ -24,12 +24,12 @@
     		
     		<div id="main">
     			<?php require_once './codePiece/noscript.php';	?>
-      			<h1>Welcome!<span class="green"></span></h1>
+      			<h1>Welcome!</h1>
       			<p><strong>Welcome</strong> to our website!<br>
-      				<a href="./conferences.php">Here</a> you can see the list of our activities and after a <a href="./signUp.php"><strong>free</strong> registration</a> you can reserve a place for you and your children.</p>
-      			<p>Unfortunately your children can't partecipate to our activity without the supervision of an adult, so you have to book also a place for you.<BR>
-      				Each registered user can accompany a maximum of 3 children!</p>
-      			<p>Have fun with our wonderful activities!</p>
+      				<a href="./conferences.php">Here</a> you can see the list of today scheduled conferences. For privacy reason you can not see the username of the person who makes the reservation if you are not a registered user.<BR>
+                    After a <a href="./signUp.php"><strong>free</strong> registration</a> you can reserve our conference room (or a part of that). </p>
+      			<p>Each registered user can reserve a place for a conference more times in the same day but unfortunately you can not make more then one registration if the two reservations are overlapped.<BR></p>
+      			<p>Our staff is available for any questions!</p>
 				<p>&nbsp;</p>
 				<h3>Our Olympic swimming pool</h3>
 				<img src="images/pool.jpg" width="700" height="390" alt="Olympic Pool" class="border: 1px solid" style="margin:0 0 0 0;" /><p>&nbsp;</p>
