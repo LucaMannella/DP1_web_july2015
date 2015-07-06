@@ -131,78 +131,54 @@
     			?>
 
       			<h1>Your Conferences</h1>
-      			<?php
+                <?php
     /************************************/
     /******* DISPLAY RESERVATIONS *******/
 	/************************************/
                     $conn = connectToDB($db_host, $db_user, $db_pass, $db_name);
-      				if($conn !== false) {	# fetch the reservations
-                        	$res = mysqli_query($conn, "SELECT * FROM booking WHERE username='$username' ORDER BY participants");
-                            if (!$res):
-                                echo "<p class='red'>Error during the download of the reservations!</p>";
-                            else:
-                                $row = mysqli_fetch_array($res);
-                                if($row==NULL)
-                                    echo "<BLOCKQUOTE><P><span class='darkgray'>At the moment, you do not have reservations.</span></P></BLOCKQUOTE>";
-                                else {
-                                    $i = 0;
-                                    while($row!=NULL) {
-                                        $id = $row['id'];	$participants = $row['participants'];
-                                        $start = $row['start_time'];    $end = $row['end_time'];
-                                        echo "<form id='reservation$i' action='./personalPage.php' method='post'>";
-                                            echo "<TABLE>",
-                                                "<TR><TH><h7>".$row['name']."</h7></TH><TH><input name='id' value='$id' type='text' readonly style='display:none'/></TH></TR>",
-                                                "<TR><TD style='text-align: center'>Number of participants = <span class='darkgray'>$participants</span></TD><TD>&nbsp;</TD>",
-                                                "<TR><TD> Start at = $start </TD><TD> End at = $end </TD></TR>",
-                                                "<TR><TD>&nbsp;</TD><TD><input class='button' id='remove$i' type='submit' value='Remove Reservation' style='margin-left: 20px;'/></TD></TR>";
-                                            echo "</TABLE></form>";
-                                        $row = mysqli_fetch_array($res);
-                                        $i++;
-                                    }
+      				if($conn !== false) {    # fetch the reservations
+                        $res = mysqli_query($conn, "SELECT * FROM booking WHERE username='$username' ORDER BY participants");
+                        if (!$res):
+                            echo "<p class='red'>Error during the download of the reservations!</p>";
+                        else:
+                            $row = mysqli_fetch_array($res);
+                            if ($row == NULL)
+                                echo "<BLOCKQUOTE><P><span class='darkgray'>At the moment, you do not have reservations.</span></P></BLOCKQUOTE>";
+                            else {
+                                $i = 0;
+                                while ($row != NULL) {
+                                    $id = $row['id'];
+                                    $participants = $row['participants'];
+                                    $start = $row['start_time'];
+                                    $end = $row['end_time'];
+                                    echo "<form id='reservation$i' action='./personalPage.php' method='post'>";
+                                    echo "<TABLE>",
+                                        "<TR><TH><h7>" . $row['name'] . "</h7></TH><TH><input name='id' value='$id' type='text' readonly style='display:none'/></TH></TR>",
+                                    "<TR><TD style='text-align: center'>Number of participants = <span class='darkgray'>$participants</span></TD><TD>&nbsp;</TD>",
+                                    "<TR><TD> Start at = $start </TD><TD> End at = $end </TD></TR>",
+                                    "<TR><TD>&nbsp;</TD><TD><input class='button' id='remove$i' type='submit' value='Remove Reservation' style='margin-left: 20px;'/></TD></TR>";
+                                    echo "</TABLE></form>";
+                                    $row = mysqli_fetch_array($res);
+                                    $i++;
                                 }
-                                mysqli_free_result($res);
-                            endif;
-                    ?>
-                   <h1>Reserve a Conference</h1>
-<?php   /************************************/
-        /******* RESERVE A CONFERENCE *******/
-        /************************************/ ?>
-                    <blockquote>
-                    <form id='Reservation' action='./personalPage.php' method='post' style="display: inline-block">
-                        <table>
-	        			    <tr><td><label for="Name"> Conference Title: </label></td><td>&nbsp;</td></tr>
-                            <tr><td><input type="text" id="Name" name="name" maxlength="36" placeholder="Insert a title for your conference" style="width: 200px;"></td><td>&nbsp;</td></tr>
-                            <tr><td><label for="Participants"> Number of Participants: </label></td><td>&nbsp;</td></tr>
-                            <tr><td><input type="number" id="Participants" name="participants" min="1" max="<?php echo ROOMSIZE ?>" placeholder="???"></td><td>&nbsp;</td></tr>
-                            <tr><td><label for="StartHour"> Starting Hour: </label></td><td><label for="StartMinute"> Starting Minute: </label></td></tr>
-                            <tr><td><?php dropDownMenu(('StartHour'), 0, 23); ?></td><td><?php dropDownMenu(('StartMinute'), 0, 59); ?></td></tr>
-                            <tr><td><label for="EndHour"> Ending Hour: </label></td><td><label for="EndMinute"> Ending Minute: </label></td></tr>
-                            <tr><td><?php dropDownMenu(('EndHour'), 0, 23); ?></td><td><?php dropDownMenu(('EndMinute'), 0, 59); ?></td></tr>
-                        </table>
-                        <br>
-                    <!-- echo "<TR><TD> Number of available place: <span id='av$i' class='green'>".$row['availability']."</span> <br>"; -->
-	        			<button type="submit" class="button" onclick="javascript:return checkConferenceValues()"> Reserve </button>
-     				</form>
-     				</blockquote>
-<!--
-                        echo "<TABLE><TR><TH><h7>".$row['name']."</h7></TH><TH><input name='id' value='$actID' type='text' readonly style='display:none'/></TH>";
-                        echo "<TD style='padding-left: 25px;'>";
-                        echo "<input class='button' id='reserve$i' type='submit' value='Reserve' style='margin-left: 20px;' onclick='return checkAvailability($i);'/></TD></TR>";
-                        echo "</TABLE></form>";
--->
-                   <h1>Today Conferences</h1>
-                   <?php
-     /***********************************/
-     /******* DISPLAY CONFERENCES *******/
-     /***********************************/
-      				$res = mysqli_query($conn, "SELECT * FROM booking WHERE username <> '$username' ORDER BY participants DESC, name ASC");
-     				if (!$res):
-      					echo "<p>Error during the download of the reservations!</p>";
-      				else:
-      					$row = mysqli_fetch_array($res);
-      					if($row==NULL)
-      						echo "<BLOCKQUOTE><p><span class='darkgray'>There are no reservations right now.</span></h3></p></BLOCKQUOTE>";
-      					else {
+                            }
+                            mysqli_free_result($res);
+                        endif;
+                    }
+
+                ?><br><h1>Today Conferences</h1>
+                <?php
+    /***********************************/
+    /******* DISPLAY CONFERENCES *******/
+    /***********************************/
+                    $res = mysqli_query($conn, "SELECT * FROM booking WHERE username <> '$username' ORDER BY participants DESC, name ASC");
+                    if (!$res):
+                        echo "<p>Error during the download of the reservations!</p>";
+                    else:
+                        $row = mysqli_fetch_array($res);
+                        if($row==NULL)
+                            echo "<BLOCKQUOTE><p><span class='darkgray'>There are no reservations right now.</span></h3></p></BLOCKQUOTE>";
+                        else {
                             while ($row != NULL) {
                                 echo "<h2><span class='darkgray'>Conference: </span>".$row['name']."</h2>",
                                     "<p>Reserved by: <span class='cyan'>".$row['username']."</span><br>",
@@ -210,11 +186,39 @@
                                     "Number of participants to the conference: <span class='cyan'>".$row['participants']."</span> </p><br>";
                                 $row = mysqli_fetch_array($res);
                             }
-      					}
-      					mysqli_free_result($res);
-      				endif;
-      			}
-      			?>
+                        }
+                        mysqli_free_result($res);
+                    endif;
+                ?>
+                <br>
+                <h1>Reserve a Conference</h1>
+<?php   /************************************/
+        /******* RESERVE A CONFERENCE *******/
+        /************************************/ ?>
+                    <blockquote>
+                    <form id='Reservation' action='./personalPage.php' method='post'>
+                        <table class="tabella">
+	        			    <tr>
+                                <td><label for="Name"> Conference Title: </label></td>
+                                <td><input type="text" id="Name" name="name" maxlength="36" placeholder="Insert a title for your conference" style="width: 220px;"></td>
+                            </tr>
+                            <tr>
+                                <td><label for="Participants"> Number of Participants: </label></td>
+                                <td><input type="number" id="Participants" name="participants" min="1" max="<?php echo ROOMSIZE ?>" placeholder="???"></td>
+                            </tr>
+                            <tr>
+                                <td><label for="StartHour" style="display: inline"> Starting Hour: </label>     <?php dropDownMenu(('StartHour'), 0, 23); ?> </td>
+                                <td><label for="StartMinute" style="display: inline"> Starting Minute: </label> <?php dropDownMenu(('StartMinute'), 0, 59); ?> </td>
+                            </tr>
+                            <tr>
+                                <td><label for="EndHour" style="display: inline"> Ending Hour: </label> &nbsp;  <?php dropDownMenu(('EndHour'), 0, 23); ?> </td>
+                                <td><label for="EndMinute" style="display: inline"> Ending Minute: </label> &nbsp;&nbsp;<?php dropDownMenu(('EndMinute'), 0, 59); ?> </td></tr>
+                            </tr>
+                        </table>
+                        <br>
+	        			<button type="submit" class="button" onclick="javascript:return checkConferenceValues()"> Reserve </button>
+     				</form>
+     				</blockquote>
       			
       		<?php else: ?>
       			<h3>You can't see this page if you are not a registered user!</h3>

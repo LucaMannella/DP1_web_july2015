@@ -1,6 +1,6 @@
 <?php	/** --- session.php --- **/
 	session_start();
-	$SessionTime = 120;	#time in seconds (the requirement is 2 minutes)
+	$SessionTime = 5;	#time in seconds (the requirement is 2 minutes)
     global $loggedIn;
 	
 	require_once 'destroySession.php';
