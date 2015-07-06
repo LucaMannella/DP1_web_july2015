@@ -33,7 +33,7 @@ h1, h2, h3, h4, h6 {
 }
 h1 { font-size: 2em;	color: #6297BC; } 
 h2 { font-size: 1.5em;	color: #6297BC; }
-h6 { font-size: 1.5em;	color: #9EC630;	margin: 5px 8px;}
+h6 { font-size: 1.5em;	color: #555555;	margin: 5px 8px;}
 h3 { font-size: 1.4em; }
 h4 { font-size: 1.3em;	color: #9EC630; }
 /*h5 { font-size: 1.3em;	color: #6297BC; }*/
@@ -84,10 +84,7 @@ code {
 	border: 1px solid #f2f2f2;  
 	border-left: 4px solid #4284B0; 
 }
-acronym {
-	cursor: help;
-	border-bottom: 1px solid #777;
-}
+
 blockquote {
 	margin: 15px;
  	padding: 0 0 0 20px;  	
@@ -178,6 +175,55 @@ textarea {
 	text-transform: none;	
 }
 
+/* Header's menu tabs */
+#header ul {
+    z-index: 999999;
+    position: absolute;
+    margin:0; padding: 0;
+    list-style:none;
+    right: 0;
+    bottom: 6px !important; bottom: 5px;
+    font: bold 13px  Arial, 'Trebuchet MS', Tahoma, verdana,  sans-serif;
+}
+#header li {
+    display:inline;
+    margin:0; padding:0;
+}
+#header a {
+    float:left;
+    background: url(tableft.jpg) no-repeat left top;
+    margin:0;
+    padding:0 0 0 4px;
+    text-decoration:none;
+}
+#header a span {
+    float:left;
+    display:block;
+    background: url(tabright.jpg) no-repeat right top;
+    padding:6px 15px 3px 8px;
+    color: #444444;
+}
+/* Commented Backslash Hack hides rule from IE5-Mac \*/
+#header a span {float:none;}
+/* End IE5-Mac hack */
+#header a:hover span {
+    color:#FFF;
+}
+#header a:hover {
+    background-position:0% -42px;
+}
+#header a:hover span {
+    background-position:100% -42px;
+}
+#header #current a {
+    background-position:0% -42px;
+    color: #FFF;
+}
+#header #current a span {
+    background-position:100% -42px;
+    color: #FFF;
+}
+
 /* main */
 #main {
 	float: left;
@@ -205,7 +251,7 @@ textarea {
 #sidebar ul.sidemenu a {
 	display:block;
 	font-weight:bold;
-	color: #333;	
+	color: #333333;
 	text-decoration:none;	
 	padding:2px 5px 2px 10px;
 	background: #f2f2f2;
@@ -218,9 +264,9 @@ textarea {
 
 #sidebar ul.sidemenu a:hover {
 	padding:2px 5px 2px 10px;
-	background: #f2f2f2;
-	color: #339900;
-	border-left:4px solid #9EC630;
+	background: #eaeaea;
+	color: #568EB6;
+	border-left: 4px solid #4284B0;
 }
 
 /* Footer */
@@ -247,56 +293,6 @@ textarea {
 	width: 30%;
 }
 
-/* menu tabs */
-#header ul {
-	z-index: 999999;
-	position: absolute;
-   margin:0; padding: 0;
-   list-style:none;
-	right: 0; 
-	bottom: 6px !important; bottom: 5px;
-	font: bold 13px  Arial, 'Trebuchet MS', Tahoma, verdana,  sans-serif;	
-}
-#header li {
-   display:inline;
-   margin:0; padding:0;
-}
-#header a {
-   float:left;
-   background: url(tableft.jpg) no-repeat left top;
-   margin:0;
-   padding:0 0 0 4px;
-   text-decoration:none;
-}
-#header a span {
-   float:left;
-   display:block;
-   background: url(tabright.jpg) no-repeat right top;
-   padding:6px 15px 3px 8px;
-   color: #444444;
-}
-/* Commented Backslash Hack hides rule from IE5-Mac \*/
-#header a span {float:none;}
-/* End IE5-Mac hack */
-#header a:hover span {
-	color:#FFF;
-}
-#header a:hover {
-   background-position:0% -42px;
-}
-#header a:hover span {
-   background-position:100% -42px;
-}
-#header #current a {
-   background-position:0% -42px;
-	color: #FFF;
-}
-#header #current a span {
-   background-position:100% -42px;
-	color: #FFF;
-}
-/* end menu tabs */
-
 /* alignment classes */
 .float-left  {	float: left; }
 .float-right {	float: right; }
@@ -309,7 +305,7 @@ textarea {
 .green	{ color: #9EC630; }
 .gray	{ color: #BFBFBF; }
 .cyan	{ color: #6297BC; }
-.darkgray { color: #666666; }
+.darkgray { color: #555555; }
 
 
 /** Tables **/

@@ -17,5 +17,5 @@ function setCurrent(currentObject) {
  * @param string
  */
 function setSpan(currentObject, string) {
-    currentObject.innerHTML = "<span>"+string+"</span>";
+    currentObject.innerHTML = "<span class='gray'>"+string+"</span>";
 }
