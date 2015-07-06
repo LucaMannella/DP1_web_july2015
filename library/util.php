@@ -17,7 +17,6 @@
 
 <?php
     /**
-     *
      * This functions controls if the values relative to the insertion of a new reservation are OK. <BR>
      * If some value is wrong this function print it on the screen.
      *
@@ -196,11 +195,14 @@
 	}
 ?>
 
-<?php 
-	/** 
-	 * This function draw a drop down menù whit all the values between the second and the third parameters (included). 
-	 * The first parameters become the id and the name of the element.
-	 **/
+<?php
+    /**
+     * This function draw a drop down menù whit all the values between the second and the third parameters (included).
+     * The first parameters become the id and the name of the element.
+     * @param $id - ID and Name of the DropDown Menù
+     * @param $i - Starting Number
+     * @param $N - Ending Number
+     */
 	function dropDownMenu($id, $i, $N) {
 		echo "<select id='$id' name='$id' style='display: inline'>";
 		echo "<option selected='selected' value='$i' style='float:right;'> $i </option>";
