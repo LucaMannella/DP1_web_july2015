@@ -26,7 +26,7 @@
         <script type="text/javascript" src="library/checks.js"></script>
     </head>
 	
-	<body onload="javascript: document.forms[0].Username.focus();">
+	<body>
 	<div id="wrap">
         <?php require_once './codePiece/header.php'; ?>
   		
