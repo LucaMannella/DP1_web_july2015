@@ -73,7 +73,9 @@
 								}
     						}
     						else {
-    							echo "<h3>The chosen username is already in use.<br>Please go <a href='signUp.php'>back</a> and try another one!</h3>";
+    							echo "<h3>The chosen username is already in use.<br>",
+                                "Please go <a href='signUp.php'>back</a> and try another one!</h3>";
+                                echo "<h3>Are you already registered? Please, go <a href='login.php'>here</a> and login!</h3>";
     						}
     						mysqli_close($conn);
     					}	
