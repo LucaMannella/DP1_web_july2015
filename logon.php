@@ -19,10 +19,10 @@
 				if( validLogin($conn, "users", $user, $pass) ){
 					$ResultString = "<h1><span class='darkgray'>Successful</span> Login!</h1>";
 					$ResultString = $ResultString."<h3>You have been successfully logged in!</h3><h3>Click <a href='./personalPage.php'>here</a> to access to your <strong>Personal Page</strong>!</h3>";
-					$_SESSION['user'] = $user;
+					$_SESSION['user222325'] = $user;
 					$username = $user;
-					$_SESSION['pass'] = $pass;
-					$_SESSION['time'] = time();
+					$_SESSION['pass222325'] = $pass;
+					$_SESSION['time222325'] = time();
 					$loggedIn = TRUE;
 				}
 				else {

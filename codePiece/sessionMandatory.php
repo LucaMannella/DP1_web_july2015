@@ -6,11 +6,11 @@
 	
 	/** Check if the user is already loggedIn,
 		if the timeout was expired the session is destroyed and the user will be redirect to the login page **/
-	if( isset($_SESSION['user']) ) {
-		$username = $_SESSION['user'];
+	if( isset($_SESSION['user222325']) ) {
+		$username = $_SESSION['user222325'];
 	
-		if( isset($_SESSION['time']) ) {
-			$diff = time() - $_SESSION['time'];	#difference between actual time and last interaction time
+		if( isset($_SESSION['time222325']) ) {
+			$diff = time() - $_SESSION['time222325'];	#difference between actual time and last interaction time
 			if($diff > $SessionTime) {
 				$loggedIn = FALSE;
 				destroySession();
@@ -20,7 +20,7 @@
 			}
 		}
 	
-		$_SESSION['time'] = time();
+		$_SESSION['time222325'] = time();
 		$loggedIn = TRUE;
 	}
 	else
