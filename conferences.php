@@ -38,7 +38,7 @@
                                 echo "<BLOCKQUOTE><p><span class='darkgray'>There are no reservations right now.</span></h3></p></BLOCKQUOTE>";
                             while ($row != NULL) {
                                 echo "<h2><span class='darkgray'>Conference: </span>".$row['name']."</h2>",
-                                    "<p>The conference starts at: <span class='cyan'>".$row['start_time']."</span> and end at: <span class='cyan'>".$row['end_time']."</span><br>",
+                                    "<p>The conference starts at <span class='cyan'>".substr($row['start_time'], 0, -3)."</span> and end at <span class='cyan'>".substr($row['end_time'], 0, -3)."</span><br>",
                                     "Number of participants to the conference: <span class='cyan'>".$row['participants']."</span> </p><br>";
                                 $row = mysqli_fetch_array($res);
                             }
