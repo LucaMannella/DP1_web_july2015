@@ -31,17 +31,17 @@
     function areReservationValuesOk($part, $sHour, $eHour, $sMinute, $eMinute) {
         $toRet = true;
 
-        if(($part < 1) ||($part > ROOMSIZE))	{	/* Checking the room availability */
+        if( (!is_numeric($part)) || ($part < 1) || ($part > ROOMSIZE))	{	/* Checking the room availability */
             echo "<p style='color:red'> Our conference hall doesn't have so much places! </p>";
             $toRet = false;
         }
 
-        if( ($sHour<0)||($sHour>23)||($sMinute<0)||($sMinute>59) ){
+        if( (!is_numeric($sHour)) || ($sHour<0)||($sHour>23) || ($sMinute<0)||($sMinute>59) || (!is_numeric($sMinute)) ){
             echo "<p style='color:red'>The starting time values are incorrect! Please check it! Hour[0-23] Minutes[0-59]</p>";
             $toRet = false;
         }
 
-        if( ($eHour<0)||($eHour>23)||($eMinute<0)||($eMinute>59) ){
+        if( (!is_numeric($eHour)) || ($eHour<0)||($eHour>23) || ($eMinute<0)||($eMinute>59) || (!is_numeric($eMinute)) ){
             echo "<p style='color:red'>The ending time values are incorrect! Please check it! Hour[0-23] Minutes[0-59]</p>";
             $toRet = false;
         }
@@ -56,9 +56,6 @@
                 $toRet = false;
             }
         }
-
-        if($toRet == false)
-            echo "</div></div>";
 
         return $toRet;
     }
