@@ -24,8 +24,9 @@
     		<div id="main">
     			<?php require_once './codePiece/noscript.php';	?>
       			<h1>Today <span class="darkgray">Conferences</span></h1><BR>
-      			<?php 
-	      			$conn = connectToDB($db_host, $db_user, $db_pass, $db_name);
+      			<?php
+                /** @var mysqli $conn **/
+                $conn = connectToDB($db_host, $db_user, $db_pass, $db_name);
 	      			if($conn != false) {
 		      			$res = mysqli_query($conn, "SELECT name, participants, start_time, end_time FROM booking ORDER BY participants DESC, name ASC");
 		      			if (!$res)
