@@ -30,7 +30,8 @@
 					<h3>Please go <a href='login.php'>back</a> and try again!</h3>
 					<h3>If you are not register you can do a free registration <a href='./signUp.php'>here</a>!</h3>";
 				}
-				mysqli_close($conn);
+                /** @var mysqli $conn */
+                mysqli_close($conn);
 			}
 		}
 	endif;
@@ -44,7 +45,7 @@
         <link rel="stylesheet" href="images/styles.css" type="text/css" />
 	</head>
 	
-	<body onload="javascript: document.forms[0].Username.focus();">
+	<body>
         <div id="wrap">
             <?php require_once './codePiece/header.php'; ?>
 
@@ -58,6 +59,9 @@
                 </div>
             </div>
             <?php include_once './codePiece/footer.php'; ?>
+            <script type="text/javascript">
+                document.forms[0].Username.focus();
+            </script>
         </div>
 	</body>
 </html>
