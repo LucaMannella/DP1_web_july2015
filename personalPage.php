@@ -139,7 +139,7 @@
 	/************************************/
                     $conn = connectToDB($db_host, $db_user, $db_pass, $db_name);
       				if($conn !== false) {    # fetch the reservations
-                        $res = mysqli_query($conn, "SELECT * FROM booking WHERE username='$username' ORDER BY participants");
+                        $res = mysqli_query($conn, "SELECT * FROM booking WHERE username='$username' ORDER BY participants DESC");
                         if (!$res):
                             echo "<p class='red'>Error during the download of the reservations!</p>";
                         else:
