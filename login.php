@@ -11,7 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="stylesheet" href="images/styles.css" type="text/css" />
         <script type="text/javascript" src="library/checks.js "></script>
-        <script type="application/javascript" src="library/graphics.js" ></script>
+        <script type="application/javascript" src="library/graphics.js"></script>
     </head>
 	
 	<body>
@@ -49,7 +49,7 @@
     <script type="text/javascript">
         setCurrent(document.getElementById("Login"));
         setSpan(document.getElementById("login"), "Login");
-        javascript: document.forms[0].Username.focus();
+        document.forms[0].Username.focus();
     </script>
 
 	</body>
