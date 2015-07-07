@@ -88,7 +88,7 @@
                                 $start = $sHour.":".$sMinute.":00";
                                 $end = $eHour.":".$eMinute.":00";
                                 try {
-                                    /** @var mysqli $conn */
+                                    /** @var mysqli $conn **/
                                     if(!mysqli_autocommit($conn, FALSE))
                                         throw new Exception("DEBUG - Impossible to set autocommit to FALSE");
 
@@ -157,7 +157,7 @@
                                     echo "<TABLE>",
                                         "<TR><TH><h7>" . $row['name'] . "</h7></TH><TH><input name='id' value='$id' type='text' readonly style='display:none'/></TH></TR>",
                                     "<TR><TD style='text-align: center'>Number of participants = <span class='darkgray'>$participants</span></TD><TD>&nbsp;</TD>",
-                                    "<TR><TD> Start at = $start </TD><TD> End at = $end </TD></TR>",
+                                    "<TR><TD> Start at = ".substr($start, 0, -3)." </TD><TD> End at = ".substr($end, 0, -3)." </TD></TR>",
                                     "<TR><TD>&nbsp;</TD><TD><input class='button' id='remove$i' type='submit' value='Remove Reservation' style='margin-left: 20px;'/></TD></TR>";
                                     echo "</TABLE></form>";
                                     $row = mysqli_fetch_array($res);
