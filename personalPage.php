@@ -219,6 +219,7 @@
                         </table>
                         <br>
 	        			<button type="submit" class="button" onclick="javascript:return checkConferenceValues()"> Reserve </button>
+                        <button type="button" class="button" onclick="resetForm()"> Reset </button>
      				</form>
      				</blockquote>
       			
@@ -236,6 +237,11 @@
     <script type="text/javascript">
         setCurrent(document.getElementById("PersonalPage"));
         setSpan(document.getElementById("personalpage"), "Personal Page");
+
+        function resetForm(){
+            document.getElementById('Reservation').reset();
+            document.getElementById("Name").focus();
+        }
     </script>
 
 	</body>
