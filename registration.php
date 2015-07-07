@@ -36,7 +36,8 @@
     				elseif( !validRegistrationValues() )
     					echo "<h3>You insert some invalid data! Please go <a href='signUp.php'>here</a> and try again!</h3>";
     				else{
-    					$conn = connectToDB($db_host, $db_user, $db_pass, $db_name);
+                        /** @var mysqli $conn */
+                        $conn = connectToDB($db_host, $db_user, $db_pass, $db_name);
     					if($conn !== false) {
 	   						$user = sanitizeString($conn, $_POST['username']);
 							$pass = md5( sanitizeString($conn, $_POST['password']) );		/* md5 create the hash of the password */

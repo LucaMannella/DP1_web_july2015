@@ -40,7 +40,7 @@
 	        			<img id="imgpwd" class="no-border" src="" style="height: 25px; width: 25px; position: relative; margin-left: 10px; margin-top: -5px; visibility: hidden;">
 	        			<br><br>
 	        			<button type="submit" class="button" onclick="return checkRegistrationValues()"> Sign Up </button>
-	        			<button type="button" class="button" onclick="javascript: document.getElementById('UserData').reset(); document.forms[0].Username.focus();"> Reset </button>
+	        			<button type="button" class="button" onclick="resetForm()"> Reset </button>
      				</form>
      			<?php endif ?>
      			</blockquote>
@@ -53,6 +53,12 @@
         setCurrent(document.getElementById("SignUp"));
         setSpan(document.getElementById("signup"), "Sign Up");
         document.forms[0].Username.focus();
+
+        function resetForm(){
+            document.getElementById("imgpwd").style.visibility = "hidden";
+            document.getElementById('UserData').reset();
+            document.forms[0].Username.focus();
+        }
     </script>
 
 	</body>

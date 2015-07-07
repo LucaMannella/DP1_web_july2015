@@ -33,6 +33,7 @@
                     if(isset($_POST['id'])) {
                         $id = $_POST['id'];
 
+                        /** @var mysqli $conn */
                         $conn = connectToDB($db_host, $db_user, $db_pass, $db_name);
                         if($conn !== false) {
                             $id = sanitizeString($conn, $id);
@@ -87,6 +88,7 @@
                                 $start = $sHour.":".$sMinute.":00";
                                 $end = $eHour.":".$eMinute.":00";
                                 try {
+                                    /** @var mysqli $conn */
                                     if(!mysqli_autocommit($conn, FALSE))
                                         throw new Exception("DEBUG - Impossible to set autocommit to FALSE");
 
