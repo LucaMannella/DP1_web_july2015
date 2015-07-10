@@ -40,7 +40,7 @@
                             try {
                                 if(!mysqli_autocommit($conn, FALSE))
                                     throw new Exception("DEBUG - Impossible to set autocommit to FALSE");
-                    #TODO: check if the for update is necessary or not!
+
                                 $res = mysqli_query($conn, "SELECT * FROM booking WHERE id=$id FOR UPDATE ");
                                 if(!$res)	# Fetch data from the database
                                     throw new Exception("DEBUG - Query 1 (fetch reservation's info) failed!");
@@ -92,7 +92,7 @@
                                     if(!mysqli_autocommit($conn, FALSE))
                                         throw new Exception("DEBUG - Impossible to set autocommit to FALSE");
 
-                                    //in other case it's also possible to use the LOCK but we don't have administrator's privilege
+                                    //in other case it's also possible to use the LOCK TABLE but we don't have administrator's privilege
                                     $res = mysqli_query($conn, "SELECT SUM(participants)as total FROM booking WHERE '$start' < end_time AND '$end' > start_time FOR UPDATE");
                                     if(!$res)	/* FOR UPDATE - lock the table for preventing a concurrency access */
                                         throw new Exception("DEBUG - Query 1 (check availability) failed!");
@@ -102,8 +102,8 @@
                                    if( ($total+$part) > ROOMSIZE )	/* Checking the availability */
                                         throw new Exception("<p style='color:red'>Reservation avoided! There are not enough places for your reservation at the specified time!</p>");
 
-                                    $res = mysqli_query($conn, "SELECT * FROM booking WHERE username='$username' AND '$start' < end_time AND '$end' > start_time");
-                                    if(!$res)
+                                    $res = mysqli_query($conn, "SELECT * FROM booking WHERE username='$username' AND '$start' < end_time AND '$end' > start_time FOR UPDATE");
+                                    if(!$res)   #for preventing the case when more users have access to the same account
                                         throw new Exception("DEBUG - Query 2 (check previous reservations in the same time slot) failed!");
                                     $row = mysqli_fetch_array($res);
                                     mysqli_free_result($res);
