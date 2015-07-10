@@ -9,7 +9,7 @@
 		if(count($_POST)==0)
 			$ResultString = "<h3>Please before visit this page go <a href='login.php'>here</a> and enter your data!</h3>";
 		elseif( !validLoginValues() )
-			$ResultString = "<h3>You insert some invalid data! Please go <a href='login.php'>back</a> and try again!</h3>";
+			$ResultString = "<h3>You have not entered all the data! Please go <a href='login.php'>back</a> and try again!</h3>";
 		else {
 			$conn = connectToDB($db_host, $db_user, $db_pass, $db_name);
 			if($conn != false) {
