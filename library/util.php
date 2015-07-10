@@ -104,17 +104,17 @@
 
     /**
      * This function checks if all the values necessary for the login are set in $_POST variable.<BR>
-     * This function prints also on the client screen all the missing values.
+     * (Actually Commented) This function prints also on the client screen all the missing values.
      * @return bool - True if all the values are not empty, false otherwise.
      */
 	function validLoginValues() {
 		$toReturn = true;
 		if( empty($_POST['username']) ){
-			echo "<p>The username is not set!</p>";
+			#echo "<p>The username is not set!</p>";
 			$toReturn = false;
 		}
 		if( empty($_POST['password']) ){
-			echo "<p>The password is not set!</p>";
+			#echo "<p>The password is not set!</p>";
 			$toReturn = false;	
 		}
 		return $toReturn;
