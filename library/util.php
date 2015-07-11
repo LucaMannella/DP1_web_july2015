@@ -62,7 +62,7 @@
 
     /**
      * This function checks if all the values necessary for the registration of a conference are set or no.
-     * @return bool - True if all the values are not empty, false otherwise.
+     * @return bool - True if all the values are not set, false otherwise.
      */
     function areReservationValuesSet() {
         if( (isset($_POST['name'])) && (isset($_POST['participants']))
@@ -72,6 +72,22 @@
             return true;
         else
             return false;
+    }
+
+    /**
+     * This function checks if all the values necessary for the registration of a conference are empty or no.
+     * @return bool - True if one of the values is empty, false otherwise.
+     */
+    function areReservationValuesEmpty() {
+        if( ($_POST['name'] == "") || ($_POST['participants'] == "")
+            || ($_POST['StartHour'] == "") || ($_POST['StartMinute'] == "")
+            || ($_POST['EndHour'] == "") || ($_POST['EndMinute'] == "")
+        )
+            $toRet = true;
+        else
+            $toRet = false;
+
+        return $toRet;
     }
 
     /**

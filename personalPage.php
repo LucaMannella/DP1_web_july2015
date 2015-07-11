@@ -62,7 +62,7 @@
                             catch (Exception $e) {
                                 mysqli_rollback($conn);
                                 mysqli_autocommit($conn, TRUE);
-                                echo "Rollback ".$e->getMessage();
+                                echo $e->getMessage();
                             }
                             mysqli_close($conn);
                         }
@@ -72,62 +72,67 @@
 	/*******************************/
     				elseif( areReservationValuesSet() )
                     {
-                        $name = $_POST['name'];         $part = $_POST['participants'];
-                        $sHour = $_POST['StartHour'];   $sMinute = $_POST['StartMinute'];
-                        $eHour = $_POST['EndHour'];     $eMinute = $_POST['EndMinute'];
+                        if( areReservationValuesEmpty() ) {
+                            echo "<p style='color:red'>You have not entered all the data necessary for the registration!</p>";
+                        }
+                        else {
+                            $name = $_POST['name'];         $part = $_POST['participants'];
+                            $sHour = $_POST['StartHour'];   $sMinute = $_POST['StartMinute'];
+                            $eHour = $_POST['EndHour'];     $eMinute = $_POST['EndMinute'];
 
-	    				$conn = connectToDB($db_host, $db_user, $db_pass, $db_name);
-	    				if($conn!==false) {
-	    					$name = sanitizeString($conn, $name);
-	    					$part = (int) sanitizeString($conn, $part);
-                            $sHour = sanitizeString($conn, $sHour);
-                            $eHour = sanitizeString($conn, $eHour);
-                            $sMinute = sanitizeString($conn, $sMinute);
-                            $eMinute = sanitizeString($conn, $eMinute);
-                            if( areReservationValuesOk($part, $sHour, $eHour, $sMinute, $eMinute) ) {
-                                $start = $sHour.":".$sMinute.":00";
-                                $end = $eHour.":".$eMinute.":00";
-                                try {
-                                    /** @var mysqli $conn **/
-                                    if(!mysqli_autocommit($conn, FALSE))
-                                        throw new Exception("DEBUG - Impossible to set autocommit to FALSE");
+                            $conn = connectToDB($db_host, $db_user, $db_pass, $db_name);
+                            if($conn!==false) {
+                                $name = sanitizeString($conn, $name);
+                                $part = (int) sanitizeString($conn, $part);
+                                $sHour = sanitizeString($conn, $sHour);
+                                $eHour = sanitizeString($conn, $eHour);
+                                $sMinute = sanitizeString($conn, $sMinute);
+                                $eMinute = sanitizeString($conn, $eMinute);
+                                if( areReservationValuesOk($part, $sHour, $eHour, $sMinute, $eMinute) ) {
+                                    $start = $sHour.":".$sMinute.":00";
+                                    $end = $eHour.":".$eMinute.":00";
+                                    try {
+                                        /** @var mysqli $conn **/
+                                        if(!mysqli_autocommit($conn, FALSE))
+                                            throw new Exception("DEBUG - Impossible to set autocommit to FALSE");
 
-                                    //in other case it's also possible to use the LOCK TABLE but we don't have administrator's privilege
-                                    $res = mysqli_query($conn, "SELECT SUM(participants)as total FROM booking WHERE '$start' < end_time AND '$end' > start_time FOR UPDATE");
-                                    if(!$res)	/* FOR UPDATE - lock the table for preventing a concurrency access */
-                                        throw new Exception("DEBUG - Query 1 (check availability) failed!");
-                                    $row = mysqli_fetch_array($res);
-                                    $total = $row['total'];
-                                    mysqli_free_result($res);
-                                   if( ($total+$part) > ROOMSIZE )	/* Checking the availability */
-                                        throw new Exception("<p style='color:red'>Reservation avoided! There are not enough places for your reservation at the specified time!</p>");
+                                        //in other case it's also possible to use the LOCK TABLE but we don't have administrator's privilege
+                                        $res = mysqli_query($conn, "SELECT SUM(participants)as total FROM booking WHERE '$start' < end_time AND '$end' > start_time FOR UPDATE");
+                                        if(!$res)	/* FOR UPDATE - lock the table for preventing a concurrency access */
+                                            throw new Exception("DEBUG - Query 1 (check availability) failed!");
+                                        $row = mysqli_fetch_array($res);
+                                        $total = $row['total'];
+                                        mysqli_free_result($res);
+                                       if( ($total+$part) > ROOMSIZE )	/* Checking the availability */
+                                            throw new Exception("<p style='color:red'>Reservation avoided! There are not enough places for your reservation at the specified time!</p>");
 
-                                    $res = mysqli_query($conn, "SELECT * FROM booking WHERE username='$username' AND '$start' < end_time AND '$end' > start_time FOR UPDATE");
-                                    if(!$res)   #for preventing the case when more users have access to the same account
-                                        throw new Exception("DEBUG - Query 2 (check previous reservations in the same time slot) failed!");
-                                    $row = mysqli_fetch_array($res);
-                                    mysqli_free_result($res);
-                                    if($row!=NULL)	/* No more then 1 reservation for each user in the same time slot */
-                                        throw new Exception("<p style='color:red'>Invalid condition! You can't have 2 overlapped reservations!</p>");
+                                        $res = mysqli_query($conn, "SELECT * FROM booking WHERE username='$username' AND '$start' < end_time AND '$end' > start_time FOR UPDATE");
+                                        if(!$res)   #for preventing the case when more users have access to the same account
+                                            throw new Exception("DEBUG - Query 2 (check previous reservations in the same time slot) failed!");
+                                        $row = mysqli_fetch_array($res);
+                                        mysqli_free_result($res);
+                                        if($row!=NULL)	/* No more then 1 reservation for each user in the same time slot */
+                                            throw new Exception("<p style='color:red'>Invalid condition! You can't have 2 overlapped reservations!</p>");
 
-                                    $res = mysqli_query($conn, "INSERT INTO booking (name, username, participants, start_time, end_time) VALUES ('$name', '$username', '$part', '$start', '$end');");
-                                    if(!$res)
-                                        throw new Exception("DEBUG - Query 3 (insert reservation) failed!");
+                                        $res = mysqli_query($conn, "INSERT INTO booking (name, username, participants, start_time, end_time) VALUES ('$name', '$username', '$part', '$start', '$end');");
+                                        if(!$res)
+                                            throw new Exception("DEBUG - Query 3 (insert reservation) failed!");
 
-                                    if(!mysqli_commit($conn))
-                                        throw new Exception("<p style='color:red'>Impossible to commit the operation!</p>");
+                                        if(!mysqli_commit($conn))
+                                            throw new Exception("<p style='color:red'>Impossible to commit the operation!</p>");
 
-                                    if(!mysqli_autocommit($conn, TRUE))
-                                        throw new Exception("DEBUG - Impossible to set autocommit to TRUE");
+                                        if(!mysqli_autocommit($conn, TRUE))
+                                            throw new Exception("DEBUG - Impossible to set autocommit to TRUE");
+                                    }
+                                    catch (Exception $e) {
+                                        mysqli_rollback($conn);
+                                        mysqli_autocommit($conn, TRUE);
+                                        echo $e->getMessage();
+                                    }
                                 }
-                                catch (Exception $e) {
-                                    mysqli_rollback($conn);
-                                    mysqli_autocommit($conn, TRUE);
-                                    echo "Rollback ".$e->getMessage();
-                                }
+                                mysqli_close($conn);
                             }
-	    					mysqli_close($conn);
-	    				}
+                        }
     				}
 	    		}
     			?>
