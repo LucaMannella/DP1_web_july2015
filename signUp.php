@@ -27,8 +27,8 @@
     		    <?php if(!$loggedIn) echo "<h1><span class='darkgray'>Enter</span> <span class='gray'>Your</span> Data</h1>"; ?>
       			<blockquote>
       			<?php if($loggedIn): ?>
-      				<h2>You are already <span class='green'>logged in</span>.</h2>
-      				<p>If you want to create a <span class='green'>new account</span>, you must do the <a href='./logout.php'><span class='green'>log out</span></a>.</p>
+      				<h2>You are already <span class='darkgray'>logged in</span>.</h2>
+      				<p>If you want to create a <span class='darkgray'>new account</span>, you must do the <a href='./logout.php'><span class='darkgray'>log out</span></a>.</p>
      			<?php else: ?>
       				<form id="UserData" method="post" action="registration.php" >
 	        			<label for="Username"> Username: </label>

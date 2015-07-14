@@ -25,7 +25,7 @@
     		<div id="main">
     			<?php require_once './codePiece/noscript.php';	?>
       			<?php if( isset($loggedIn) && ($loggedIn) ): ?>
-      				<blockquote> <h2>You are already <span class='green'>logged in</span>.</h2></blockquote>
+      				<blockquote> <h2>You are already <span class='darkgray'>logged in</span>.</h2></blockquote>
      			<?php else: 
      				if( (isset($_GET["msg"])) && ($_GET["msg"]=="SessionTimeOutExpired") )
      					echo "<p class='red'>Tmeout expired! You have not interacted with our server for too much time!<br>Please, login again! </p>";	?>

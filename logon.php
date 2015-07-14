@@ -38,7 +38,7 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
     <head>
         <title>Reservations Conference Hall</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -55,7 +55,7 @@
 
                 <div id="main">
                     <?php require_once './codePiece/noscript.php';	?>
-                    <?php echo $ResultString;	?>
+                    <blockquote> <?php echo $ResultString;	?> </blockquote
                 </div>
             </div>
             <?php include_once './codePiece/footer.php'; ?>

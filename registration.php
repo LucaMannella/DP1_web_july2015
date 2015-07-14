@@ -27,11 +27,11 @@
     			<?php
     				if(count($_POST)===0) {
     					if( isset($loggedIn) && ($loggedIn) ) {
-    						echo "<h2>You are already <span class='green'>logged in</span>.</h2>",
-	    						"<p>If you want to create a <span class='green'>new account</span>, you must do the <a href='./logout.php'>log out</a>.</p>";
+    						echo "<blockquote><h2>You are already <span class='darkgray'>logged in</span>.</h2>",
+	    						"<p>If you want to create a <span class='darkgray'>new account</span>, you must do the <a href='./logout.php'>log out</a>.</p></blockquote>";
     					}
     					else
-    						echo "<h3>Please before visit this page go <a href='signUp.php'>here</a> and enter your data!</h3>";
+    						echo "<blockquote><h3>Please before visit this page go <a href='signUp.php'>here</a> and enter your data!</h3></blockquote>";
     				}
     				elseif( !validRegistrationValues() )
     					echo "<h3>You entered some invalid data! Please go <a href='signUp.php'>here</a> and try again!</h3>";
