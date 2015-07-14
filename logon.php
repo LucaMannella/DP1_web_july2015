@@ -55,7 +55,7 @@
 
                 <div id="main">
                     <?php require_once './codePiece/noscript.php';	?>
-                    <blockquote> <?php echo $ResultString;	?> </blockquote
+                    <?php echo $ResultString;	?>
                 </div>
             </div>
             <?php include_once './codePiece/footer.php'; ?>
