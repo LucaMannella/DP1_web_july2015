@@ -211,7 +211,8 @@
                             </tr>
                             <tr>
                                 <td><label for="Participants"> Number of Participants: </label></td>
-                                <td><input type="number" id="Participants" name="participants" min="1" max="<?php echo ROOMSIZE ?>" placeholder="<?php echo'between [1-'.ROOMSIZE.']' ?>"></td>
+                                <td><input type="number" id="Participants" name="participants" min="1" max="<?php echo ROOMSIZE ?>" placeholder="<?php echo 'between [1-'.ROOMSIZE.']'; ?>"
+                                           style="text-align:center; width:135px;"></td>
                             </tr>
                             <tr>
                                 <td><label for="StartHour" style="display: inline"> Starting Hour: </label>     <?php dropDownMenu(('StartHour'), 0, 23); ?> </td>
