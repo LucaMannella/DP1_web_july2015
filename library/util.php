@@ -217,11 +217,14 @@
      * @param $N - Ending Number
      */
 	function dropDownMenu($id, $i, $N) {
-		echo "<select id='$id' name='$id' style='display: inline'>";
-		echo "<option selected='selected' value='$i' style='float:right;'> $i </option>";
-		
+		echo "<select id='$id' name='$id' style='display: inline' onmouseout='hideTooltip(Tooltip$id);' onmouseover=' showTooltip(Tooltip$id);'>";
+
+		echo "<option selected='selected' value='0$i' style='float:right;'> 0$i </option>";
 		for($i=$i+1; $i<=$N; $i++) {
-			echo "<option value='$i'> $i </option>";
+            if($i < 10)
+                echo"<option value='$i'>0$i</option> ";
+            else
+			    echo "<option value='$i'> $i </option>";
 		}
 		echo "</select>";
 	}

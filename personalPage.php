@@ -41,12 +41,12 @@
                                 if(!mysqli_autocommit($conn, FALSE))
                                     throw new Exception("DEBUG - Impossible to set autocommit to FALSE");
 
-                                $res = mysqli_query($conn, "SELECT * FROM booking WHERE id=$id FOR UPDATE ");
+                                $res = mysqli_query($conn, "SELECT * FROM booking WHERE id=$id AND username='$username' FOR UPDATE ");
                                 if(!$res)	# Fetch data from the database
                                     throw new Exception("DEBUG - Query 1 (fetch reservation's info) failed!");
                                 $row = mysqli_fetch_array($res);
                                 if($row==NULL)
-                                    throw new Exception("<p class='red'>The desired reservation does not exist!</p>");
+                                    throw new Exception("<p class='red'>The desired reservation does not exist anymore!</p>");
                                 mysqli_free_result($res);
 
                                 $res = mysqli_query($conn, "DELETE FROM booking WHERE id=$id");
@@ -160,9 +160,9 @@
                                     $end = $row['end_time'];
                                     echo "<form id='reservation$i' action='./personalPage.php' method='post'>";
                                     echo "<TABLE>",
-                                        "<TR><TH><h7>" . $row['name'] . "</h7></TH><TH><input name='id' value='$id' type='text' readonly style='display:none'/></TH></TR>",
-                                    "<TR><TD style='text-align: center'>Number of participants = <span class='darkgray'>$participants</span></TD><TD>&nbsp;</TD>",
-                                    "<TR><TD> Start at = ".substr($start, 0, -3)." </TD><TD> End at = ".substr($end, 0, -3)." </TD></TR>",
+                                        "<TR><TH><h6 style='text-align: left'>" . $row['name'] . "</h6></TH><TH><input name='id' value='$id' type='text' readonly style='display:none'/></TH></TR>",
+                                    "<TR><TD>Number of participants = <span class='cyan'>$participants</span></TD><TD>&nbsp;</TD>",
+                                    "<TR><TD> Start at <span class='cyan'>".substr($start, 0, -3)."</span> </TD><TD> End at <span class='cyan'>".substr($end, 0, -3)."</span> </TD></TR>",
                                     "<TR><TD>&nbsp;</TD><TD><input class='button' id='remove$i' type='submit' value='Remove Reservation' style='margin-left: 20px;'/></TD></TR>";
                                     echo "</TABLE></form>";
                                     $row = mysqli_fetch_array($res);
@@ -215,12 +215,12 @@
                                            style="text-align:center; width:135px;"></td>
                             </tr>
                             <tr>
-                                <td><label for="StartHour" style="display: inline"> Starting Hour: </label>     <?php dropDownMenu(('StartHour'), 0, 23); ?> </td>
-                                <td><label for="StartMinute" style="display: inline"> Starting Minute: </label> <?php dropDownMenu(('StartMinute'), 0, 59); ?> </td>
+                                <td><label for="StartHour" style="display: inline"> Starting Hour: </label>     <?php dropDownMenu(('StartHour'), 0, 23); ?> <span id='TooltipStartHour' class="tooltip"> Select the starting hour </span> </td>
+                                <td><label for="StartMinute" style="display: inline"> Starting Minute: </label> <?php dropDownMenu(('StartMinute'), 0, 59); ?> <span id='TooltipStartMinute' class="tooltip"> Select the starting hour </span> </td>
                             </tr>
                             <tr>
-                                <td><label for="EndHour" style="display: inline"> Ending Hour: </label> &nbsp;  <?php dropDownMenu(('EndHour'), 0, 23); ?> </td>
-                                <td><label for="EndMinute" style="display: inline"> Ending Minute: </label> &nbsp;&nbsp;<?php dropDownMenu(('EndMinute'), 0, 59); ?> </td></tr>
+                                <td><label for="EndHour" style="display: inline"> Ending Hour: </label> &nbsp;  <?php dropDownMenu(('EndHour'), 0, 23); ?> <span id='TooltipEndHour' class="tooltip"> Select the starting hour </span> </td>
+                                <td><label for="EndMinute" style="display: inline"> Ending Minute: </label> &nbsp;&nbsp;<?php dropDownMenu(('EndMinute'), 0, 59); ?> <span id='TooltipEndMinute' class="tooltip"> Select the starting hour </span> </td></tr>
                             </tr>
                         </table>
                         <br>
@@ -247,6 +247,14 @@
         function resetForm(){
             document.getElementById('Reservation').reset();
             document.getElementById("Name").focus();
+        }
+
+        function showTooltip(ObjId) {
+            ObjId.style.visibility="visible";
+        }
+
+        function hideTooltip(ObjId) {
+            ObjId.style.visibility="hidden";
         }
     </script>
 
