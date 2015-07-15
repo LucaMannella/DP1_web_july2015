@@ -68,7 +68,7 @@
                                 echo "<h3>Click <a href='./login.php'>here</a> to login!</h3>";
 
                                 if(!mysqli_autocommit($conn, TRUE))
-                                    throw new Exception("Impossible to set autocommit to TRUE");
+                                    throw new Exception("DEBUG - Impossible to set autocommit to TRUE");
                             }
                             catch (Exception $e) {
                                 mysqli_rollback($conn);
