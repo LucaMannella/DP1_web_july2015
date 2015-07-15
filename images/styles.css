@@ -313,3 +313,14 @@ textarea {
 .tabella TH, .tabella TR, .tabella TD {
     padding: 10px;
 }
+
+.tooltip {
+    border-radius: 10px;
+    color: white;
+    margin: -20px 0 0 10px;
+    padding: 12px;
+    position: absolute;
+    visibility: hidden;
+    z-index: 1;
+    background-color: rgba(7, 35, 188, 0.80);
+}
