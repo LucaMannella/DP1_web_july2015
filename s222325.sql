@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `booking` (
 INSERT INTO `booking` (`id`, `name`, `username`, `participants`, `start_time`, `end_time`) VALUES
 (1, 'The Sockets', 'u1', 60, '14:00:00', '16:30:00'),
 (2, 'PHP: Hypertext Preprocessor', 'u2', 40, '15:15:00', '17:45:00'),
-(3, 'The JavaScript ', 'u3', 50, '16:30:00', '18:30:00');
+(3, 'JavaScript ', 'u3', 50, '16:30:00', '18:30:00');
 
 -- --------------------------------------------------------
 
