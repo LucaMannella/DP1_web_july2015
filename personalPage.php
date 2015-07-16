@@ -215,12 +215,12 @@
                                            style="text-align:center; width:135px;"></td>
                             </tr>
                             <tr>
-                                <td><label for="StartHour" style="display: inline"> Starting Hour: </label>     <?php dropDownMenu(('StartHour'), 0, 23); ?> <span id='TooltipStartHour' class="tooltip"> Select the starting hour </span> </td>
-                                <td><label for="StartMinute" style="display: inline"> Starting Minute: </label> <?php dropDownMenu(('StartMinute'), 0, 59); ?> <span id='TooltipStartMinute' class="tooltip"> Select the starting hour </span> </td>
+                                <td><label for="StartHour" style="display: inline"> Starting Hour: </label>     <?php dropDownMenu(('StartHour'), 0, 23); ?> <span id='TooltipStartHour' class="tooltip"> Select the Starting Hour </span> </td>
+                                <td><label for="StartMinute" style="display: inline"> Starting Minute: </label> <?php dropDownMenu(('StartMinute'), 0, 59); ?> <span id='TooltipStartMinute' class="tooltip"> Select the Starting Minute </span> </td>
                             </tr>
                             <tr>
-                                <td><label for="EndHour" style="display: inline"> Ending Hour: </label> &nbsp;  <?php dropDownMenu(('EndHour'), 0, 23); ?> <span id='TooltipEndHour' class="tooltip"> Select the starting hour </span> </td>
-                                <td><label for="EndMinute" style="display: inline"> Ending Minute: </label> &nbsp;&nbsp;<?php dropDownMenu(('EndMinute'), 0, 59); ?> <span id='TooltipEndMinute' class="tooltip"> Select the starting hour </span> </td></tr>
+                                <td><label for="EndHour" style="display: inline"> Ending Hour: </label> &nbsp;  <?php dropDownMenu(('EndHour'), 0, 23); ?> <span id='TooltipEndHour' class="tooltip"> Select the Ending Hour </span> </td>
+                                <td><label for="EndMinute" style="display: inline"> Ending Minute: </label> &nbsp;&nbsp;<?php dropDownMenu(('EndMinute'), 0, 59); ?> <span id='TooltipEndMinute' class="tooltip"> Select the Ending Minute </span> </td></tr>
                             </tr>
                         </table>
                         <br>
