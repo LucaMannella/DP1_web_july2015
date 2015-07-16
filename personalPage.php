@@ -97,15 +97,41 @@
                                             throw new Exception("DEBUG - Impossible to set autocommit to FALSE");
 
                                         //in other case it's also possible to use the LOCK TABLE but we don't have administrator's privilege
-                                        $res = mysqli_query($conn, "SELECT SUM(participants)as total FROM booking WHERE '$start' < end_time AND '$end' > start_time FOR UPDATE");
+                                        $res = mysqli_query($conn, "SELECT * FROM booking WHERE '$start' < end_time AND '$end' > start_time FOR UPDATE");
                                         if(!$res)	/* FOR UPDATE - lock the table for preventing a concurrency access */
-                                            throw new Exception("DEBUG - Query 1 (check availability) failed!");
-                                        $row = mysqli_fetch_array($res);
-                                        $total = $row['total'];
+                                            throw new Exception("DEBUG - Query 1 (check availability) failed!");                                                                              
+                                        
+                                        
+                                        $row = mysqli_fetch_array($res);		#Fetching all the records
+                                        $i = 0;
+                                        $tot[0] = 0;
+                                        while ($row != NULL) {                                    
+                                        	$startTime[$i] = $row['start_time'];
+                                        	$endTime[$i] = $row['end_time'];
+                                        	$parts[$i] = $row['participants'];
+                                        	$i++;
+                                        	
+                                        	$row = mysqli_fetch_array($res);
+                                        }
                                         mysqli_free_result($res);
-                                       if( ($total+$part) > ROOMSIZE )	/* Checking the availability */
-                                            throw new Exception("<p style='color:red'>Reservation avoided! There are not enough places for your reservation at the specified time!</p>");
-
+                                        
+                                        $N = $i;								#Computing all the subtotals
+                                        for($i=0; $i<$N; $i++) {                                    
+                                        	$tot[$i] = $parts[$i];
+                                        	for($j=0; $j<$N; $j++) {
+                                        		if($i!=$j) {		#previous logic ---> '$start' < end_time AND '$end' > start_time
+                                        			if( ($startTime[$i] < $endTime[$j]) && ($endTime[$i] > $startTime[$j]) )
+                                        				$tot[$i] += $parts[$j];
+                                        		}
+                                        	}
+                                        }
+                                        
+                                        for($i=0; $i<$N; $i++) {				# Checking the availability
+                                        	if( ($tot[$i]+$part) > ROOMSIZE )
+                                        		throw new Exception("<p style='color:red'>Reservation avoided! There are not enough places for your reservation at the specified time!</p>");
+                                        }                                                                   
+                                       
+                                   
                                         $res = mysqli_query($conn, "SELECT * FROM booking WHERE username='$username' AND '$start' < end_time AND '$end' > start_time FOR UPDATE");
                                         if(!$res)   #for preventing the case when more users have access to the same account
                                             throw new Exception("DEBUG - Query 2 (check previous reservations in the same time slot) failed!");
