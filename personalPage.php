@@ -102,7 +102,7 @@
                                             throw new Exception("DEBUG - Query 1 (check availability) failed!");                                                                              
                                         
                                         
-                                        $row = mysqli_fetch_array($res);		#Fetching all the records
+                                        $row = mysqli_fetch_array($res);		    #Fetching all the records
                                         $i = 0;
                                         $tot[0] = 0;
                                         while ($row != NULL) {                                    
@@ -114,32 +114,55 @@
                                         	$row = mysqli_fetch_array($res);
                                         }
                                         mysqli_free_result($res);
-                                        
-                                        $N = $i;								#Computing all the subtotals
-                                        for($i=0; $i<$N; $i++) {                                    
-                                        	$tot[$i] = $parts[$i];
-                                        	for($j=0; $j<$N; $j++) {
-                                        		if($i!=$j) {		#previous logic ---> '$start' < end_time AND '$end' > start_time
-                                        			if( ($startTime[$i] < $endTime[$j]) && ($endTime[$i] > $startTime[$j]) )
-                                        				$tot[$i] += $parts[$j];
-                                        		}
-                                        	}
+                                        $N = $i;
+
+                                        for($i = $sHour; $i <= $eHour; $i++) {      #checking minute by minute
+                                            if($sHour == $eHour) {          #if are equal I will check only the minutes
+                                                $sm = $sMinute;
+                                                $em = $eMinute;
+                                            }
+                                            else {
+                                                if ($i == $sHour) {         #This is the first case, I'm starting from the user's minute
+                                                    $sm = $sMinute;
+                                                    $em = 60;
+                                                } else {
+                                                    if ($i == $eHour) {     #This is the last case, I'm ending in the user's minute
+                                                        $sm = 0;
+                                                        $em = $eMinute;
+                                                    } else {                #This is the default case, I will check all the hour
+                                                        $sm = 0;
+                                                        $em = 60;
+                                                    }
+                                                }
+                                            }
+                                            for ($j = $sm; $j < $em; $j++) {    #cycling on the hours
+                                                $tot = 0;
+                                                $time = $i.":".$j.":00";
+                                                for ($conf = 0; $conf < $N; $conf++) {  #cycling on the minutes
+                                                    $x = strtotime($time);
+                                                    $xEnd = strtotime($endTime[$conf]);
+                                                    $xStart = strtotime($startTime[$conf]);
+                                                    if (($x < $xEnd) && ($x >= $xStart))
+                                                        $tot += $parts[$conf];
+
+                                                    if( ($tot+$part) > ROOMSIZE ) {     # Checking the availability
+                                                        #echo("<p>DEBUG: i=$i j=$j tot=$tot </p>");
+                                                        throw new Exception("<p style='color:red'>Reservation avoided! There are not enough places for your reservation at the specified time!</p>");
+                                                    }
+                                                }
+                                                #echo("<p>DEBUG: i=$i j=$j tot=$tot </p>");
+                                            }
                                         }
-                                        
-                                        for($i=0; $i<$N; $i++) {				# Checking the availability
-                                        	if( ($tot[$i]+$part) > ROOMSIZE )
-                                        		throw new Exception("<p style='color:red'>Reservation avoided! There are not enough places for your reservation at the specified time!</p>");
-                                        }                                                                   
                                        
-                                   
+                                   /*   --- Removed because it is not into the assignment's specifications ---
                                         $res = mysqli_query($conn, "SELECT * FROM booking WHERE username='$username' AND '$start' < end_time AND '$end' > start_time FOR UPDATE");
                                         if(!$res)   #for preventing the case when more users have access to the same account
                                             throw new Exception("DEBUG - Query 2 (check previous reservations in the same time slot) failed!");
                                         $row = mysqli_fetch_array($res);
                                         mysqli_free_result($res);
-                                        if($row!=NULL)	/* No more then 1 reservation for each user in the same time slot */
+                                        if($row!=NULL)	# No more then 1 reservation for each user in the same time slot
                                             throw new Exception("<p style='color:red'>Invalid condition! You can't have 2 overlapped reservations!</p>");
-
+                                    */
                                         $res = mysqli_query($conn, "INSERT INTO booking (name, username, participants, start_time, end_time) VALUES ('$name', '$username', '$part', '$start', '$end');");
                                         if(!$res)
                                             throw new Exception("DEBUG - Query 3 (insert reservation) failed!");
@@ -181,12 +204,13 @@
                                 $i = 0;
                                 while ($row != NULL) {
                                     $id = $row['id'];
+                                    $name = $row['name'];
                                     $participants = $row['participants'];
                                     $start = $row['start_time'];
                                     $end = $row['end_time'];
                                     echo "<form id='reservation$i' action='./personalPage.php' method='post'>";
                                     echo "<TABLE>",
-                                        "<TR><TH><h6 style='text-align: left'>" . $row['name'] . "</h6></TH><TH><input name='id' value='$id' type='text' readonly style='display:none'/></TH></TR>",
+                                        "<TR><TH><h6 style='text-align: left'>$name</h6></TH><TH><input name='id' value='$id' type='text' readonly style='display:none'/></TH></TR>",
                                     "<TR><TD>Number of participants = <span class='cyan'>$participants</span></TD><TD>&nbsp;</TD>",
                                     "<TR><TD> Start at <span class='cyan'>".substr($start, 0, -3)."</span> </TD><TD> End at <span class='cyan'>".substr($end, 0, -3)."</span> </TD></TR>",
                                     "<TR><TD>&nbsp;</TD><TD><input class='button' id='remove$i' type='submit' value='Remove Reservation' style='margin-left: 20px;'/></TD></TR>";
