@@ -23,6 +23,14 @@
     		<div id="main">
 				<?php require_once './codePiece/noscript.php';	?>
       			<h1><span class="gray">Some</span> <span class="darkgray">Additional</span> Informations</h1>
+                <p> Hotel I Due Gabbiani is located in <strong>Andora</strong>, overlooking one of the most beautiful coasts of Liguria and Italy, the Riviera di Ponente. </p>
+                <p> The Hotel is ideal for a holiday by the sea close to the beach, very close to the beach, offers a beach resort with every comfort.
+                    You will have the opportunity to book at discounted rates directly to the 0182/684852. E 'recommended hotel guests to book well in advance the place on the beach for the months of July and August so to be assured of a place reserved. </p>
+                <p> Strategically located, is well connected with the center of Andora and is a great starting point for discovering the charm of the Riviera. </p>
+                <p> The Hotel I Due Gabbiani offers all the comforts for a pleasant stay: American bar, restaurant, cozy lounge, TV room, game room, elevator, car park. </p>
+                <p> The restaurant service offers a choice of three starters, three main courses, vegetables cooked and fresh, desserts and fruit. Buffet breakfast, welcome cocktail and gala dinner. </p>
+                <p> Helpful and professional, the hotel staff will respond promptly to guests' needs, so that every holiday is a unique experience. </p>
+
                 <p><strong>Andora is located in the western part of the Riviera, between the bays of Capo Mele (to the east) and Cape Mimosa (to the west),</strong>
                     at the mouth of the river that runs through it: Merula. Its extensive beaches are considered among the most beautiful in the Ligurian Riviera and stretching for almost 2 km in length.</p>
                 <p>Continuously since 1986, the resort boasts a Blue Flag for the excellent quality of marine waters.
