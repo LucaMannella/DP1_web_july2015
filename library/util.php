@@ -228,4 +228,28 @@
 		}
 		echo "</select>";
 	}
+
+/*
+function isDifferent($k, $indexes) {
+    for($i=0; $i<count($indexes); $i++) {
+        if ($i == $k)
+            return false;
+    }
+    return true;
+}
+
+function findOverlapping($startTime, $endTime, $parts, $ST, $ET, $indexes, $N) {
+    $tot = 0;
+    for ($k = 0; $k < $N; $k++) {
+        if (isDifferent($k, $indexes)) {        #previous logic ---> '$start' < end_time AND '$end' > start_time
+            if (($ST < $endTime[$k]) && ($ET > $startTime[$k])) {
+                $tot = $parts[$k];
+                $indexes[count($indexes) + 1] = $k;
+                $tot += findOverlapping($startTime, $endTime, $parts, max($ST, $startTime[$k]), min($ET, $endTime[$k]), $indexes, $N);
+                return $tot;
+            }
+        }
+    }
+    return $tot;
+}*/
 ?>
