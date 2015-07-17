@@ -23,9 +23,8 @@
     		<div id="main">
 				<?php require_once './codePiece/noscript.php';	?>
       			<h1><span class="gray">Some</span> <span class="darkgray">Additional</span> Informations</h1>
-                <p> Hotel I Due Gabbiani is located in <strong>Andora</strong>, overlooking one of the most beautiful coasts of Liguria and Italy, the Riviera di Ponente. </p>
-                <p> The Hotel is ideal for a holiday by the sea close to the beach, very close to the beach, offers a beach resort with every comfort.
-                    You will have the opportunity to book at discounted rates directly to the 0182/684852. E 'recommended hotel guests to book well in advance the place on the beach for the months of July and August so to be assured of a place reserved. </p>
+                <p> Hotel I Due Gabbiani is located in <strong>Andora</strong>, overlooking one of the most beautiful coasts of Liguria and Italy, the western coast. </p>
+                <p> The Hotel is ideal for a holiday by the sea close to the beach, very close to the beach, offers a beach resort with every comfort. </p>
                 <p> Strategically located, is well connected with the center of Andora and is a great starting point for discovering the charm of the Riviera. </p>
                 <p> The Hotel I Due Gabbiani offers all the comforts for a pleasant stay: American bar, restaurant, cozy lounge, TV room, game room, elevator, car park. </p>
                 <p> The restaurant service offers a choice of three starters, three main courses, vegetables cooked and fresh, desserts and fruit. Buffet breakfast, welcome cocktail and gala dinner. </p>
@@ -42,7 +41,7 @@
                 <img src="images/andora.jpg" width="700" height="230" alt="Andora's seascape." class="no-border" style="margin:0 0 30px 0;" />
                 <br>
                 <p> <span style="color:red">Disclaimer</span>:<br> All material relating to the hotels is owned by the Hotel<strong> I 2 Gabbiani&copy;</strong> (Andora) and <strong>Artemide Centro Congressi&copy;</strong> (Castel San Pietro). I do not hold any rights on them.<br>
-                    I chose to represent these hotels in my website for creating a more concrete work and to pay homage to a place where I grew up (the first one) and a place that I was very impressed.</p>
+                    I chose to represent these hotels in my website for creating a more concrete work and to pay homage to a place where I grew up (the first one) and a place where I followed some very interesting seminars.</p>
                 <br>
 				<div class="maps">
 					<h2>Where to find us</h2>
